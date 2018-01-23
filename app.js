@@ -5,6 +5,10 @@ var express     = require("express"),
     passport    = require("passport"),
     LocalStrategy = require("passport-local"),
     methodOverride = require("method-override"),
+    Physiotherapist = require("./models/physiotherapist"),
+    Address = require("./models/address"),
+    Patient = require("./models/patient"),
+    
     // Campground  = require("./models/campground"),
     // Comment     = require("./models/comment"),
     // User        = require("./models/user"),
@@ -37,6 +41,10 @@ app.use(passport.session());
 app.use(function(req, res, next){
     res.locals.currentUser = req.user;
     res.locals.error = req.flash("error");
-    res.locals.success = 
-})
+    res.locals.success = req.flash("success");
+});
+
+//USE PREDEFINED ROUTES
+app.use("/", indexRoutes);
+app.use("/")
     
