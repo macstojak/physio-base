@@ -5,8 +5,10 @@ var mongoose= require("mongoose"),
         username: String,
         password: String,
         address: {
-            id: mongoose.Schema.Type.ObjectId,
+            id: {
+            type: mongoose.Schema.Types.ObjectId,
             ref: "PhysiotherapistAddress"
+            }
         }
     });
 module.exports = mongoose.model("Physiotherapist", physiotherapistSchema);

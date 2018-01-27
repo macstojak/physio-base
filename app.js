@@ -5,10 +5,16 @@ var express     = require("express"),
     passport    = require("passport"),
     LocalStrategy = require("passport-local"),
     methodOverride = require("method-override"),
-    Physiotherapist = require("./models/physiotherapist"),
+ 
     Address = require("./models/address"),
+    Appointment = require("./models/appointment"),
+    Disease = require("./models/disease"),
     Patient = require("./models/patient"),
-    
+    Physiotherapist = require("./models/physiotherapist"),
+    Refferal = require("./models/refferal"),
+    Visit = require("./models/visit"),
+    indexRoutes = require("./routes/index"),
+    patientRoutes = require("./routes/patient"),
     // Campground  = require("./models/campground"),
     // Comment     = require("./models/comment"),
     // User        = require("./models/user"),
@@ -16,13 +22,14 @@ var express     = require("express"),
     
 //routes in here VVVV    
     
-mongoose.connect(process.env.DATABASEURL);
+mongoose.connect("mongodb://localhost/physio_base");
 
 app.use(bodyParser.urlencoded({extended: true})); //
 app.set("view engine", "ejs"); //parse ejs files extentions
-app.use(express.static(__dirname+"/public")); 
+app.use(express.static(__dirname + "/public"));
 app.use(methodOverride("_method")); //override method=DELETE or method=PUT
 app.use(flash()); //flash messages
+ 
 
 
 //PASSPORT CONFIG
@@ -38,13 +45,26 @@ app.use(passport.session());
 // passport.deserializeUser(User.deserializeUser);
 
 //STORE LOCAL VARIABLES
-app.use(function(req, res, next){
-    res.locals.currentUser = req.user;
-    res.locals.error = req.flash("error");
-    res.locals.success = req.flash("success");
-});
+// app.use(function(req, res, next){
+//     res.locals.currentUser = req.user;
+//     res.locals.error = req.flash("error");
+//     res.locals.success = req.flash("success");
+// });
 
 //USE PREDEFINED ROUTES
 app.use("/", indexRoutes);
-app.use("/")
+app.use("/patients", patientRoutes);
+
+//ROUTES
+// app.get("/", function(req, res){
+//     res.render("landing");
+// });
+// app.get("/patients", function(req, res){
+//     res.render("patients/index");
+// });
     
+app.listen(process.env.PORT, process.env.IP, function(){
+   console.log("The YelpCamp Server Has Started!");
+});
+
+

@@ -6,8 +6,10 @@ var mongoose = require("mongoose"),
         zipcode: String,
         town: String,
         patient:{
-            id: mongoose.Schema.Types.ObjectId,
+            id: {
+            type: mongoose.Schema.Types.ObjectId,
             ref: "Patient"
+            }
         }
     }),
     physiotherapistaddressSchema =  new mongoose.Schema({
@@ -17,8 +19,10 @@ var mongoose = require("mongoose"),
         zipcode: String,
         town: String,
         physiotherapist: {
-            id: mongoose.Schema.Types.ObjectId,
+            id: {
+            type: mongoose.Schema.Types.ObjectId,
             ref: "Physiotherapist"
+            }
         }
     });
 module.exports = mongoose.model("PatientAddress", patientaddressSchema);

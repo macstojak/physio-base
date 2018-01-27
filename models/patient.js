@@ -1,3 +1,5 @@
+//PACJENT
+
 var mongoose = require("mongoose"),
     patientSchema = new mongoose.Schema({
         firstname: String,
@@ -8,8 +10,17 @@ var mongoose = require("mongoose"),
         securityinstance: String,
         phone: String,
         address: {
-            id: mongoose.Schema.Type.ObjectId,
-            ref: "PatientAddress"
+            id:{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "PatientAddress"  
+            }
+        },
+        refferal:{
+            id:{
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Refferal"
+            }
         }
+        
     });
 module.exports = mongoose.model("Patient", patientSchema);
