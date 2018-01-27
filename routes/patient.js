@@ -4,4 +4,7 @@ var express = require("express"),
 router.get("/", function(req, res){
     res.render("patients/index");
 });
+router.get("/new", function(req, res){
+    res.render("patients/new")
+})
 module.exports = router;
