@@ -14,11 +14,13 @@ var express     = require("express"),
     User = require("./models/user"),
     Refferal = require("./models/refferal"),
     Visit = require("./models/visit"),
-   
+    seedDB      = require("./seeds"),
+
     // Campground  = require("./models/campground"),
     // Comment     = require("./models/comment"),
     // User        = require("./models/user"),
     flash       = require("connect-flash")
+    seedDB();
     
 //routes in here VVVV    
     
