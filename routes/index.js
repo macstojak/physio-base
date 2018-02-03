@@ -6,21 +6,29 @@ var express = require("express"),
  
  
 //START
-router.get("/", function(req, res) {
+router.get("/", function(err, req, res) {
+    if(err){
+        console.log(err);
+    }else
     res.render("landing", {user: req.user});
-})
+});
 //LOGIN FORM
-router.get("/login", function(req, res){
+router.get("/login", function(err, req, res){
+    if(err){
+        console.log(err);
+    }
     res.render("login", {user: req.user});
 });
 //LOGIN VALIDATION AND PROCESS
-router.post("/login", passport.authenticate('local', {
+router.post("/login", passport.authenticate("local", {
     successRedirect: "/landing",
     failureRedirect: "/login", 
     failureFlash: "You must've entered wrong username or password",
     successFlash: "Welcome to PhysioBase"
-    }), function(req, res) {
-       
+    }), function(err, req, res) {
+       if(err){
+           console.log(err);
+       }
 });
 //LOGOUT
 router.get("/logout", function(req,res){

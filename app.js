@@ -29,8 +29,7 @@ mongoose.connect("mongodb://localhost/physio_base");
 
 app.use(bodyParser.urlencoded({extended: true})); //
 app.set("view engine", "ejs"); //parse ejs files extentions
-app.use(bodyParser.json());
-app.use(cookieParser());
+
 
 app.use(express.static(__dirname + "/public"));
 app.use(methodOverride("_method")); //override method=DELETE or method=PUT
@@ -44,11 +43,11 @@ app.use(require("express-session")({
     resave: false,
     saveUninitialized: false
 })); //express-session
-app.use(passport.initialize());
-app.use(passport.session());
-passport.use(new LocalStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+// app.use(passport.initialize());
+// app.use(passport.session());
+// passport.use(new LocalStrategy(User.authenticate()));
+// passport.serializeUser(User.serializeUser());
+// passport.deserializeUser(User.deserializeUser());
 
 //STORE LOCAL VARIABLES
 app.use(function(req, res, next){
@@ -59,8 +58,11 @@ app.use(function(req, res, next){
 
 
 //ROUTES
-app.get("/", function(req, res){
-    res.render("login");
+app.get("/", function(err, req, res){
+    if(err){
+        console.log(err);
+    }
+    res.render("landing");
 });
 // app.get("/patients", function(req, res){
 //     res.render("patients/index");
