@@ -1,5 +1,6 @@
 var mongoose= require("mongoose"),
-    physiotherapistSchema = new mongoose.Schema({
+    passportLocalMongoose = require("passport-local-mongoose"),
+    userSchema = new mongoose.Schema({
         firstname: String,
         lastname: String,
         username: String,
@@ -7,8 +8,9 @@ var mongoose= require("mongoose"),
         address: {
             id: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "PhysiotherapistAddress"
+            ref: "UserAddress"
             }
         }
     });
-module.exports = mongoose.model("Physiotherapist", physiotherapistSchema);
+    userSchema.plugin(passportLocalMongoose);
+module.exports = mongoose.model("User", userSchema);

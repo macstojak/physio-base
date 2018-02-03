@@ -12,7 +12,7 @@ var mongoose = require("mongoose"),
         physiotherapist: {
             id:{
                 type: mongoose.Schema.Types.ObjectId,
-                ref: "Physiotherapist"
+                ref: "User"
             }
         },
         description: String,

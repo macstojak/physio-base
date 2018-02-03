@@ -11,14 +11,14 @@ var mongoose = require("mongoose"),
         physiotherapist:{
             id: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Phystiotherapist"
+            ref: "User"
             }
         },
         appointmentdate: Date,
         supervisor: {
             id: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Physiotherapist"
+            ref: "User"
             }
         },
         month: String,

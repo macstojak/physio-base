@@ -12,18 +12,18 @@ var mongoose = require("mongoose"),
             }
         }
     }),
-    physiotherapistaddressSchema =  new mongoose.Schema({
+    useraddressSchema =  new mongoose.Schema({
         streetname: String,
         nrblock: Number,
         nrflat: Number,
         zipcode: String,
         town: String,
-        physiotherapist: {
+        user: {
             id: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Physiotherapist"
+            ref: "User"
             }
         }
     });
 module.exports = mongoose.model("PatientAddress", patientaddressSchema);
-module.exports = mongoose.model("PhysiotherapistAddress", physiotherapistaddressSchema);
+module.exports = mongoose.model("UserAddress", useraddressSchema);
