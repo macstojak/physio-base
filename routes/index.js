@@ -1,39 +1,53 @@
 var express = require("express"),
-    router = express.Router(),
-    passport = require("passport"),
-    
-    User = require("../models/user");
+    router = express.Router();
+var passport = require("passport");
+var User = require("../models/user");
  
  
 //START
-router.get("/", function(err, req, res) {
-    if(err){
-        console.log(err);
-    }else
-    res.render("landing", {user: req.user});
+router.get("/", function(req, res) {
+    res.render("landing");
+
+});
+router.get('/register', function(req, res) {
+    res.render('register', { });
+});
+
+router.post('/register', function(req, res) {
+    User.register(new User({ username : req.body.username }), req.body.password, function(err, user) {
+        if (err) {
+            req.flash("error", err.message);
+            return res.render('register', { user : user });
+            
+        }
+
+        passport.authenticate('local')(req, res, function () {
+            req.flash("success", "Welcome to PhysioBase, "+ user.username);
+            res.redirect('/');
+            
+        });
+    });
 });
 //LOGIN FORM
-router.get("/login", function(err, req, res){
-    if(err){
-        console.log(err);
-    }
-    res.render("login", {user: req.user});
+router.get("/login", function(req, res){
+    res.render("login");
 });
 //LOGIN VALIDATION AND PROCESS
+//handle login logic
 router.post("/login", passport.authenticate("local", {
-    successRedirect: "/landing",
+    successRedirect: "/",
     failureRedirect: "/login", 
-    failureFlash: "You must've entered wrong username or password",
-    successFlash: "Welcome to PhysioBase"
-    }), function(err, req, res) {
-       if(err){
-           console.log(err);
-       }
+    failureFlash: "Wprowadzono niepoprawny login lub hasło",
+    successFlash: "Witamy w PhysioBase"
+    }), function(req, res) {
+
 });
+
 //LOGOUT
-router.get("/logout", function(req,res){
+router.get("/logout", function(req, res) {
     req.logout();
-    res.render("/");
-})
+    req.flash("success", "Logged you out!");
+    res.redirect("/");
+});
 
 module.exports = router;

@@ -1,4 +1,49 @@
 <% include partials/header %>
-<p>This is landing page</p>
-
+<div class="container">
+   
+    <% if(!currentUser){ %>
+    <div class="row text-center">
+        <div class="col-md-6 tile">
+            <h3><a href="/login">Zaloguj się do systemu</a></h3>
+        </div>
+        <div class="col-md-6 tile">
+            <h3><a href="/register">Zarejestruj się jako nowy użytkownik</a></h3>
+        </div>
+    </div>
+    <% } else { %>
+     <div class="jumbotron"><h1>Witaj na stronie PhysioBase, <%= currentUser.username %>  </h1></div>
+    <div class="container">
+    <ul class="ul-menu">
+        <div class="row text-center">
+           
+            <div id="cf1" class="col-md-6 cf">
+              <a href="#">
+              <img class="bottom  "></img>
+              <img class="top tile"></img>
+              <li>Sprawdź listę pacjentów</a></li>
+            </div>
+            <div id="cf2" class="col-md-6 cf">
+                 <a href="#">
+                 <img class="bottom"></img>
+                 <img class="top tile"></img>
+                 <li>Sprawdź swoich pacjentów na mapie</a></li>
+            </div>
+            <div id="cf3" class="col-md-6 cf">
+                <a href="#">
+                <img class="bottom"></img>
+                 <img class="top tile"></img>
+                 <li>Opisz przypadek</a></li>
+            </div>
+            <div id="cf4" class="col-md-6 cf">
+                <a href="#">
+                <img class="bottom"></img>
+                 <img class="top tile"></img>
+                 <li>Archiwum</a></li>
+            </div>
+        </div>
+    </ul>
+    </div>
+    <% } %>
+    <h2>Przejdź do listy pacjentów</h2>
+</div>
 <% include partials/footer %>

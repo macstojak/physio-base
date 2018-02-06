@@ -22,21 +22,21 @@ function seedDB()
         }else
         {
             console.log("Removed all the users!");
-                data.forEach(function(seed)
-                {
-                User.create(seed, function(err, user)
-                {
-                    if(err)
-                    {
-                        console.log(err);
-                    }else
-                    {
-                                user.save();
-                                console.log("Created new user");
-                            }
-                        });
-                    }
-                );
+                // data.forEach(function(seed)
+                // {
+                // User.create(seed, function(err, user)
+                // {
+                //     if(err)
+                //     {
+                //         console.log(err);
+                //     }else
+                //     {
+                //                 user.save();
+                //                 console.log("Created new user");
+                //             }
+                //         });
+                //     }
+                // );
         }
     });
 }

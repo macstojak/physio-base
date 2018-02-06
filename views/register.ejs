@@ -1,0 +1,20 @@
+<% include ./partials/header %>
+    <h3>Zarejestruj się w PhysioBase</h3>
+    <form action="/register" method="POST">
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-md-6">
+                    <p>Login:</p>
+                    <input type="text" name="username"></input>
+                    <p>Hasło:</p>
+                    <input type="password" name="password"></input>
+                </div>
+               
+               
+            </div>
+            <br>
+             <div class="col-md-12"><button class="btn btn-info">Załóż konto</button></div> 
+        </div>
+    </form>
+<% include ./partials/footer %>
