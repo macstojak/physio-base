@@ -1,0 +1,64 @@
+<% include ../partials/header %>
+    
+    <div class="container-fluid">
+        <form action="/patients" method="POST">
+            <div class="form-group">
+                
+                <label>Imię pacjenta:</label>
+            <input class="form-control" type="text" name="<% patient.firstname %>">
+            <label>Nazwisko pacjenta:</label>
+            <input class="form-control" type="text" name="<% patient.lastname %>">
+            <label>Nr kontaktowy telefonu:</label>
+            <input class="form-control" type="text" name="<% patient.phone %>">
+            </div>
+            <div class="form-group">
+            <label>Numer ubezpieczenia:</label>
+            <input class="form-control" type="text" name="<% patient.securitynr %>">
+            <label>Data wydania ubezpieczenia:</label>
+            <input class="form-control" type="text" name="<% patient.securitydate %>">
+            <label>Nazwa ubezpieczyciela:</label>
+            <input class="form-control" type="text" name="<% patient.securityinstance %>">
+            </div>
+            <label>Adresy pacjenta:</label>
+           
+            <% include ../partials/address-header %>
+                    <% if(!patient.address){%>
+                    <tr>
+                        <th scope="row">Brak adresu ...  
+                        <div class="text-right">
+                        <a class="btn btn-xs btn-success" 
+                        href="/patients/<%= patient._id%>/address/new">Dodaj nowy adres pacjenta</a>
+                        </div>
+                        </th>
+                    </tr>
+                    <% }else{ %>
+                    <% patient.address.forEach(function(address){%>
+                    <tr>
+                        
+                        <th scope="row">address.indexOf</th>
+                        <th>address.streetname</th>
+                        <th>address.nrblock</th>
+                        <th>addreess.nrflat</th>
+                        <th>address.zipcode</th>
+                        <th>address.town</th>
+                        <% if(currentUser && user.id.equals(currentUser._id)){ %>
+                            <th><a class="btn btn-xs btn-warning" 
+                               href="/patients/<%=patient._id %>/addresses/<%=address._id %>/edit">Edytuj adres</a>
+                            </th>
+                            <th>
+                            <form class="delete-form" action="/patients/<%=patient._id %>/addresses/<%=address._id %>?_method=DELETE" method="POST">
+                                <input type="submit" class="btn btn-xs btn-danger" value="Delete">
+                            </form>
+                            </th>
+                        <% } %>
+                    </tr>
+                    <% })%>
+                    <% } %>
+                    <% include ../partials/address-footer%>
+               
+          
+        </form>
+        
+    </div>
+
+<% include ../partials/footer %>

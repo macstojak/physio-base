@@ -7,21 +7,21 @@ var express     = require("express"),
     methodOverride = require("method-override"),
     path = require("path"),
     User = require("./models/user"),
+    Patient = require("./models/patient"),
     seedDB      = require("./seeds"),
     flash       = require("connect-flash");
     // seedDB();
     
 //routes in here VVVV    
 var format = 'url=":url" method=":method" statusCode=":statusCode" delta=":delta" ip=":ip"';   
-var indexRoutes = require("./routes/index");
+var indexRoutes = require("./routes/index"),
+    patientRoutes = require("./routes/patients")
 mongoose.connect("mongodb://localhost/physio_base");
 
 app.use(bodyParser.urlencoded({extended: true})); //
-
 app.set("view engine", "ejs"); //parse ejs files extentions
 app.use(express.static(path.join(__dirname, 'public')));
 app.set("views", path.join(__dirname, "views"));
-
 app.use(methodOverride("_method")); //override method=DELETE or method=PUT
 app.use(flash()); //flash messages
 app.use(require("express-session")({
@@ -43,6 +43,7 @@ app.use(function(req, res, next){
    next();
 });
 app.use("/", indexRoutes);
+app.use("/patients", patientRoutes);
 
 //ROUTES
 // app.get("/", function(err, req, res){

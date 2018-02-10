@@ -15,31 +15,39 @@
     <div class="container">
     
         <div class="ul-menu row text-center">
-           
+             <% if(currentUser.username === "Admin"){ %>
+             <div id="cf5" class="col-md-6 cf">
+              <img class="bottom "></img>
+              <img class="top tile"><span class="text-div"><a class="text-top" href="/patients/new">Dodaj pacjenta</a></span></img>
+              
+            </div>
+            <div id="cf6" class="col-md-6 cf">
+                 <img class="bottom"></img>
+                 <img class="top tile"><span class="text-div"><a class="text-top" href="#">Sprawdź listę pacjentów</a></span></img>
+                 
+            </div>
+            <% } else { %>
             <div id="cf1" class="col-md-6 cf">
-              <a href="#">
-              <img class="bottom  "></img>
-              <img class="top tile"></img>
-              Sprawdź listę pacjentów</a>
+              <img class="bottom "></img>
+              <img class="top tile"><span><a class="text-top" href="#">Lista pacjentów</a></span></img>
+              
             </div>
             <div id="cf2" class="col-md-6 cf">
-                 <a href="#">
                  <img class="bottom"></img>
                  <img class="top tile"></img>
-                 <li>Sprawdź swoich pacjentów na mapie</a></li>
+                 <span><a class="text-top" href="#">Mapa</a></span>
             </div>
             <div id="cf3" class="col-md-6 cf">
-                <a href="#">
                 <img class="bottom"></img>
                  <img class="top tile"></img>
-                 <li>Opisz przypadek</a></li>
+                 <span><a class="text-top" href="#">Wprowadź opisy</a></span>
             </div>
             <div id="cf4" class="col-md-6 cf">
-                <a href="#">
                 <img class="bottom"></img>
                  <img class="top tile"></img>
-                 <li>Archiwum</a></li>
+                 <span><a class="text-top" href="#">Archiwum</a></span>
             </div>
+            <% } %>
         </div>
     </div>
     <% } %>

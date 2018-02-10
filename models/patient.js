@@ -7,7 +7,7 @@ var mongoose = require("mongoose"),
         pesel: String,
         securitynr: String,
         securitydate: Date,
-        securityinstance: String,
+        securityinstance: ["ZUS", "KRUS", "MSWiA"],
         phone: String,
         address: {
             id:{

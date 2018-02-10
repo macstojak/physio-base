@@ -1,0 +1,84 @@
+<% include ../partials/header %>
+    
+    <div class="container">
+        
+        <form action="/patients" method="POST">
+           <h3>Dane osobowe:</h3>
+                <hr>
+            <div class="form-row">
+                
+                
+                <div class="col-md-6 col-sm-12">
+                <label>Imię pacjenta:</label>
+                <input class="form-control" type="text" name="firstname">
+                </div>
+                <div class="col-md-4 col-sm-12">
+                <label>Nazwisko pacjenta:</label>
+                <input class="form-control" type="text" name="lastname">
+                </div>
+            
+                <div class="col">
+                <label>Nr kontaktowy telefonu:</label>
+                <input class="form-control" type="text" name="phone">
+                </div>
+            </div>
+            
+           
+            <h3>Ubezpieczenie:</h3>
+                <hr>
+            <div class="form-row">
+                
+                <div class="col col-md-6 col-sm-12">
+                <label>Numer ubezpieczenia:</label>
+                <input class="form-control" type="text" name="securitynr">
+                </div>
+                <div class="col col-md-4 col-sm-12">
+                <label>Data wydania ubezpieczenia:</label>
+                <input class="form-control" type="text" name="securitydate">
+                </div>
+                <div class="col">
+                <label>Nazwa ubezpieczyciela:</label>
+                <select class="form-control" name="securityinstance">
+                    <option selected>Wybierz jedną z instytucji...</option>
+                    <option>ZUS</option>
+                    <option>KRUS</option>
+                    <option>MSWiA</option>
+                    <option>Wojsko</option>
+                </select>
+                </div>
+            </div>
+            
+            <h3>Adresy:</h3>
+            <hr>
+            
+           
+            <% include ../partials/address-header %>
+                    <tr>
+                        <td colspan="6">Brak adresu ...  
+                        <div class="text-right">
+                        <a class="btn btn-xs btn-success" 
+                        href="/patients/address/new">Dodaj nowy adres pacjenta</a>
+                        </div>
+                        </td>
+                    </tr>
+                    <% include ../partials/address-footer%>
+            
+            <h3>Skierowania:</h3>
+            <hr>
+            <% include ../partials/address-header %>
+                    <tr>
+                        <td colspan="6">Brak skierowań ...  
+                        <div class="text-right">
+                        <a class="btn btn-xs btn-success" 
+                        href="/patients/address/new">Dodaj nowe skierowanie</a>
+                        </div>
+                        </td>
+                    </tr>
+                    <% include ../partials/address-footer%>
+               
+          
+        </form>
+        
+    </div>
+
+<% include ../partials/footer %>

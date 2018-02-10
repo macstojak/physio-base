@@ -18,6 +18,12 @@
 #cf4 img:nth-child(2){
 	background-image: url("img/menu/archive.jpg");
 }
+#cf5 img:nth-child(2){
+	background-image: url("img/menu/register2.jpg");
+}
+#cf6 img:nth-child(2){
+	background-image: url("img/menu/register1.jpg");
+}
 .cf {
   position:relative;
   height:281px;
@@ -34,9 +40,21 @@ max-height:100%;
   -moz-transition: opacity 1s ease-in-out;
   -o-transition: opacity 1s ease-in-out;
   transition: opacity 1s ease-in-out;
+  z-index: 0;
 }
 
-.cf img.top:hover {
-  opacity:0.5;
+
+.cf .top:hover {
+  opacity: 0;
   z-index: 0;
+}
+span, div{
+  margin: auto;
+}
+.cf:hover .text-div{
+  background-color: rgba(50,0,200,0.5);
+  margin: auto;
+
+  position: inherit;
+  z-index: 1;
 }
