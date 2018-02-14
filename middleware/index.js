@@ -1,5 +1,5 @@
-var User = require("./models/user"),
-    Patient = require("./models/patient"),
+var User = require("../models/user"),
+    Patient = require("../models/patient"),
     middlewareObj = {};
 
 middlewareObj.isLoggedIn = function(req, res, next){
@@ -13,6 +13,24 @@ middlewareObj.isLoggedIn = function(req, res, next){
 }
 
 middlewareObj.checkOwnershipPatient = function(req, res, next){
-    if()
+    if(req.isAuthenticated()){
+        Patient.findById(req.params.patient_id, function(err, foundPatient){
+            if(err){
+                console.log("Couldn't find any patient");
+            }else{
+                if(!foundPatient){
+                    res.redirect("back");
+                }else{
+                    if(foundPatient){
+                        next();
+                    }
+                    else{
+                        req.flash("error", "Nie masz uprawnień do tego.");
+                        res.redirect("back");
+                    }
+                }
+            }
+        })
+    }
 }
 module.exports = middlewareObj;

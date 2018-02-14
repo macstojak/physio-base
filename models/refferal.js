@@ -3,7 +3,7 @@
 var mongoose = require("mongoose"),
     refferalSchema = new mongoose.Schema({
         clinicname: String,
-        refdate: Date,
+        refdate: String,
         doctor: String,
         license: String,
         disease: {

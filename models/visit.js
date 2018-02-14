@@ -2,7 +2,7 @@
 var mongoose = require("mongoose"),
     visitSchema = new mongoose.Schema({
         number: Number,
-        date: Date,
+        date: String,
         patient:{
             id: {
                 type: mongoose.Schema.Types.ObjectId,
@@ -16,7 +16,7 @@ var mongoose = require("mongoose"),
             }
         },
         description: String,
-        updated_at: Date,
-        created_at: Date
+        updated_at: String,
+        created_at: String
     });
 module.exports = mongoose.model("Visit", visitSchema);

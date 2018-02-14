@@ -6,19 +6,27 @@ var mongoose = require("mongoose"),
         lastname: String,
         pesel: String,
         securitynr: String,
-        securitydate: Date,
+        securitydate: String,
         securityinstance: ["ZUS", "KRUS", "MSWiA"],
         phone: String,
-        address: {
-            id:{
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "PatientAddress"  
-            }
-        },
-        refferal:{
-            id:{
+        addresses: [
+                {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "PatientAddress"  
+                }
+            ],
+            
+        refferal:[
+            {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "Refferal"
+            }
+            ],
+        
+        user:{
+            id:{
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "User"
             }
         }
         

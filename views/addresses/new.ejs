@@ -1,0 +1,32 @@
+<% include ../partials/header %>
+<h1>Podaj nowy adres pacjenta:</h1>
+    <form action="/patients/<%= patient._id %>/addresses" method="POST">
+        <div class="container">
+            <h3>Pacjent: <%= patient.firstname %> <%= patient.lastname %> - <%= patient.pesel %></h3>
+                <div class="form-group">
+                    <label>Ulica:</label>
+                    <input class="form-control" type="text" name="address[streetname]"></input>
+                </div>
+                <div class="form-group">
+                    <label>Nr bloku:</label>
+                    <input class="form-control" type="text" name="address[nrblock]"></input>
+                </div>
+                <div class="form-group">
+                    <label>Nr mieszkania:</label>
+                    <input class="form-control" type="text" name="address[nrflat]"></input>
+                </div>
+                <div class="form-group">
+                    <label>Kod pocztowy:</label>
+                    <input class="form-control" type="text" name="address[zipcode]"></input>
+                </div>
+                <div class="form-group">
+                    <label>Miasto:</label>
+                    
+                    <input class="form-control" type="text" name="address[town]"></input>
+                </div>
+                <button class="btn btn-success">Zapisz adres</button>
+        </div>
+        
+    </form>
+
+<% include ../partials/footer %>

@@ -16,7 +16,10 @@
                 <label>Nazwisko pacjenta:</label>
                 <input class="form-control" type="text" name="lastname">
                 </div>
-            
+                 <div class="col-md-4 col-sm-12">
+                <label>PESEL:</label>
+                <input class="form-control" type="text" name="pesel">
+                </div>
                 <div class="col">
                 <label>Nr kontaktowy telefonu:</label>
                 <input class="form-control" type="text" name="phone">
@@ -47,36 +50,7 @@
                 </select>
                 </div>
             </div>
-            
-            <h3>Adresy:</h3>
-            <hr>
-            
-           
-            <% include ../partials/address-header %>
-                    <tr>
-                        <td colspan="6">Brak adresu ...  
-                        <div class="text-right">
-                        <a class="btn btn-xs btn-success" 
-                        href="/patients/address/new">Dodaj nowy adres pacjenta</a>
-                        </div>
-                        </td>
-                    </tr>
-                    <% include ../partials/address-footer%>
-            
-            <h3>Skierowania:</h3>
-            <hr>
-            <% include ../partials/address-header %>
-                    <tr>
-                        <td colspan="6">Brak skierowań ...  
-                        <div class="text-right">
-                        <a class="btn btn-xs btn-success" 
-                        href="/patients/address/new">Dodaj nowe skierowanie</a>
-                        </div>
-                        </td>
-                    </tr>
-                    <% include ../partials/address-footer%>
-               
-          
+            <button class="btn btn-success">Zapisz pacjenta</button>
         </form>
         
     </div>

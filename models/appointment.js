@@ -14,7 +14,7 @@ var mongoose = require("mongoose"),
             ref: "User"
             }
         },
-        appointmentdate: Date,
+        appointmentdate: String,
         supervisor: {
             id: {
             type: mongoose.Schema.Types.ObjectId,
