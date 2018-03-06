@@ -1,7 +1,8 @@
 var express = require("express"),
     router = express.Router();
 var passport = require("passport");
-var User = require("../models/user");
+var User = require("../models/user"),
+    Refferal = require("../models/refferal")
  
  
 //START
@@ -13,7 +14,15 @@ router.get("/", function(req, res) {
 router.get('/register', function(req, res) {
     res.render('register', { });
 });
-
+router.get("/refferals", function(req, res) {
+    Refferal.find({}, function(err, refferals){
+        if(err){
+            console.log(err);
+        }else{
+            res.render("refferals/show", {refferals: refferals});
+        }
+    })
+})
 router.post('/register', function(req, res) {
     User.register(new User({ username : req.body.username }), req.body.password, function(err, user) {
         if (err) {

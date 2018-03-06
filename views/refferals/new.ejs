@@ -1,0 +1,42 @@
+<% include ../partials/header %>
+ <div class="container-fluid">
+        <form action="/refferals" method="POST">
+           <h3>Nowe skierowanie:</h3>
+                <hr>
+                <div class="col-md-6 col-sm-12">
+                <label>Data skierowania:</label>
+                <input class="form-control" type="text" name="refdate">
+                </div>
+                <div class="col-md-6 col-sm-12">
+                <label>Lekarz kierujący:</label>
+                <select data-live-search="true" class="selectpicker">
+
+                    <% doctors.forEach(function(doctor){ %>
+                    <option value="<%=doctor.nrpwz%>"><%= doctor.nrpwz%> - <%=doctor.firstname %> <%= doctor.lastname %></option>
+                    <% }) %>
+                </select>
+                </div>
+                 <div class="col-md-6 col-sm-12">
+                <label>Jednostka kierująca:</label>
+                <select data-live-search="true" class="selectpicker">
+                    <% clinics.forEach(function(clinic){ %>
+                    <option><%= clinic.regon%> - <%=clinic.name %></option>
+                    <% }) %>
+                </select>
+                </div>
+                <div class="col-md-12 col-sm-12">
+                    <label>Choroby:</label>
+                    <select data-live-search="true" class="selectpicker" multiple>
+                     <% diseases.forEach(function(disease){ %>
+                    <option><%= disease.code%> - <%=disease.name %></option>
+                    <% }) %>
+                    </select>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <button class="btn btn-xs btn-success centered">Zapisz pacjenta</button>
+                </div>
+            
+        </form>
+    </div>
+
+<% include ../partials/footer %>

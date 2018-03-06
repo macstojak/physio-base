@@ -1,14 +1,15 @@
 var express = require("express"),
     Patient = require("../models/patient"),
-    Address = require("../models/patientaddress"),
+    Address= require("../models/patientaddress"),
+    Refferal = require("../models/refferal"),
     middleware = require("../middleware"),
-    moment = require("moment"),
-    router = express.Router();
+    router = express.Router({mergeParams: true});
 
 router.get('/', function(req, res){
     res.render("patients/show");
 });   
-router.get("/show", middleware.isLoggedIn, function(req, res){
+//INDEX - ALL PATIENTS
+router.get("/index", middleware.isLoggedIn, function(req, res){
     Patient.find({}, function(err, allPatients){
         if(err){
 
@@ -16,12 +17,22 @@ router.get("/show", middleware.isLoggedIn, function(req, res){
         }
         else{
             
-            res.render("patients/show", {patient: allPatients});
+            res.render("patients/index", {patient: allPatients});
         }
     });
 });
+// SHOW - ONE PATIENT - ALL INFO
+router.get("/:id/show", middleware.isLoggedIn, function(req, res){
+    Patient.findById(req.params.id).populate("addresses refferals").exec(function(err, foundPatient){
+        if(err){
+            console.log(err);
+        }
+            res.render("patients/show", {patient: foundPatient});
+    });
+});
+
 router.get("/new", middleware.isLoggedIn, function(req, res){
-    res.render("patients/new")
+    res.render("patients/new");
 });
 router.post("/",  middleware.isLoggedIn, function(req, res){
     var firstname = req.body.firstname,
@@ -50,25 +61,20 @@ router.post("/",  middleware.isLoggedIn, function(req, res){
             }else{
                 console.log(patient);
                 req.flash("success", "Zarejestrowano pacjenta!")
-                res.redirect("patients/show");
+                res.redirect("patients/index");
             }
         });
     
     
 });
 
-router.get("/:patient_id/edit", function(req, res){
-    Patient.findById(req.params.patient_id).populate("addresses").exec(function(err, foundPatient){
+router.get("/:id/edit", function(req, res){
+    Patient.findById(req.params.id).populate("addresses").exec(function(err, foundPatient){
         if(err){
             console.log(err);
-            res.redirect("patients/show");
+            res.redirect("patients/index");
         }
-             
-            res.render("patients/edit", {
-            patient_id: req.params.patient_id,
-            patient: foundPatient, 
-            addresses: foundPatient.addresses
-        });
+            res.render("patients/edit", {patient: foundPatient});
     });
 });
 
@@ -79,7 +85,7 @@ router.put("/:id", function(req, res){
             res.redirect("back");
         }
         else{
-            res.redirect("/patients/show");
+            res.redirect("/patients/index");
         }
     });
 });
@@ -95,6 +101,6 @@ router.delete("/:patient_id", function(req, res){
             res.redirect("/");
         }
     })
-})
+});
 
 module.exports = router;

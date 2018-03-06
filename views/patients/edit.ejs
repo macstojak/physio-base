@@ -19,36 +19,34 @@
             <label>Data wydania ubezpieczenia:</label>
             <input class="form-control" type="text" name="patient[securitydate]"  value="<%= patient.securitydate %>">
             <label>Nazwa ubezpieczyciela:</label>
-           
+            <select class="form-control">
+                <option selected>Zaznaczono: <%= patient.securityinstance %></option>
+                <option>ZUS</option>
+                <option>MSWiA</option>
+                <option>KRUS</option>
+            </select>
             </div>
-            <label>Adresy pacjenta:</label>
+              <label><h3>Adresy pacjenta:</h3></label>
            
-            <% include ../partials/address-header %>
-                   
-                    <% addresses.forEach(function(address){ %>
+            <% include ../partials/address/address-header %>
+                   <% if(patient.addresses ===null || patient.addresses === undefined || patient.addresses.length ===0){%>
+                   <tr>
+                       <th>Brak adresu...</th>
+                   </tr>
+                   <% }else{%>
+                    <% patient.addresses.forEach(function(address){ %>
                     <tr>
-                        <th scope="row"></th>
-                        <th><%=address._id%></th>
+                        <th scope="row"><%=patient.addresses.indexOf(address)%></th>
                         <th><%=address.streetname%></th>
                         <th><%=address.nrblock%></th>
                         <th><%=address.nrflat%></th>
                         <th><%=address.zipcode%></th>
                         <th><%=address.town%></th>
                         
-                            <th><a class="btn btn-xs btn-warning" 
-                               href="/patients/<%=patient._id %>/addresses/<%=addresses._id %>/edit">Edytuj adres</a>
-                            </th>
-                            <th>
-                            <form class="delete-form" action="/patients/<%=patient._id %>/addresses/<%=addresses._id %>?_method=DELETE" method="POST">
-                                <input type="submit" class="btn btn-xs btn-danger" value="Delete">
-                            </form>
-                            </th>
-                        
                     </tr>
                     <% })%>
-                 
-                    <% include ../partials/address-footer%>
-               
+                 <% } %>
+                    <% include ../partials/address/address-footer%>
           <button class="btn btn-primary">Zatwierdź zmiany</button>
         </form>
         

@@ -1,0 +1,19 @@
+<% include ../partials/header %>
+<h3>Skierowania pacjentów:</h3>
+<% include ../partials/refferal/refferal-header %>
+
+<% refferals.forEach(refferal){ %>
+    <tr>
+        <th><%= refferal.refdate %></th> 
+        <th><%= refferal.clinicname%></th>
+        <th><%= refferal.doctor%></th>
+        <th><%= refferal.diseases%></th>
+        <th><a class="btn btn-xs btn-danger" href="">Edytuj skierowanie</a>
+        <form action="/patients/<%= patient._id%>/refferals/<%= refferal._id%>/?_method=DELETE" method="POST"></form>
+        <button class="btn btn-xs btn-warning">Usuń</button>
+        </th>
+        
+    </tr>
+<% } %>
+<% include ../partials/refferal/refferal-footer %>
+<% include ../partials/footer %>

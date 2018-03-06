@@ -1,22 +1,26 @@
 var express     = require("express"),
+ methodOverride = require("method-override"),
     app         = express(),
     passport    = require("passport"),
     bodyParser  = require("body-parser"),
     mongoose    = require("mongoose"),
     LocalStrategy = require("passport-local"),
-    methodOverride = require("method-override"),
     path = require("path"),
     User = require("./models/user"),
     Patient = require("./models/patient"),
+    Address = require("./models/patientaddress"),
+    Refferal = require("./models/refferal"),
     seedDB      = require("./seeds"),
     flash       = require("connect-flash");
     // seedDB();
     
 //routes in here VVVV    
-var format = 'url=":url" method=":method" statusCode=":statusCode" delta=":delta" ip=":ip"';   
+
 var indexRoutes = require("./routes/index"),
     patientRoutes = require("./routes/patients"),
-    addressRoutes = require("./routes/addresses")
+    addressRoutes = require("./routes/addresses"),
+    refferalRoutes = require("./routes/refferals");
+    
 mongoose.connect("mongodb://localhost/physio_base");
 
 app.use(bodyParser.urlencoded({extended: true})); //
@@ -43,9 +47,12 @@ app.use(function(req, res, next){
    res.locals.success = req.flash("success");
    next();
 });
+
 app.use("/", indexRoutes);
 app.use("/patients", patientRoutes);
 app.use("/patients/:id/addresses", addressRoutes);
+app.use("/patients/:id/refferals", refferalRoutes);
+
 
 //ROUTES
 // app.get("/", function(err, req, res){

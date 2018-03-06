@@ -16,13 +16,13 @@ var mongoose = require("mongoose"),
                 }
             ],
             
-        refferal:[
+        refferals:[
             {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "Refferal"
             }
             ],
-        
+            
         user:{
             id:{
                 type: mongoose.Schema.Types.ObjectId,

@@ -1,43 +1,43 @@
 <% include ../partials/header %>
-<div class="container-fluid">    
-<h1 class="font-spaced" >Rejestr pacjentów: </h1>
-<% include ../partials/patient-header %>
-                    <% if(!patient){%>
-                    <tr>
-                        <th scope="row">Brak pacjentów ...  
-                        <div class="text-right">
-                        <a class="btn btn-xs btn-success" 
-                        href="/patients/new">Dodaj nowego pacjenta</a>
-                        </div>
-                        </th>
-                    </tr>
-                    <% }else{ %>
-                    <% patient.forEach(function(patients){%>
-                    <tr>
-                        
-                        <th scope="row"><%=patient.indexOf(patients, 1)%></td>
-                        <td><%=patients.firstname%></td>
-                        <td><%=patients.lastname%></td>
-                         <td><%=patients.pesel%></td>
-                        <td><%=patients.phone%></td>
-                        <td><%=patients.securitynr%></td>
-                        <td><%=patients.securitydate%></td>
-                        <td><%=patients.securityinstance%></td>
-                        <% if(currentUser){ %>
-                            <th><a class="btn btn-xs btn-warning" 
-                               href="/patients/<%=patients._id %>/edit">Edytuj pacjenta</a>
-                            </th>
-                            <th>
-                            <form class="delete-form" action="/patients/<%=patients._id %>?_method=DELETE" method="POST">
-                                <input type="submit" class="btn btn-xs btn-danger" value="Usuń pacjenta">
-                            </form>
-                            </th>
-                        <% } %>
-                    </tr>
+<div class="container">
+<h3><%=patient.firstname%> <%=patient.lastname%> - <%=patient.pesel%></h3>
+<br>
+<h3>Adresy pacjenta:</h3>
+       <% if(patient.addresses ===null || patient.addresses === undefined || patient.addresses.length ===0){%>
+                       <p>Brak zarejestrowanych skierowań...</p>
+                   <% }else{%>
+                    <% patient.addresses.forEach(function(address){ %>
+                    <ul>
+                        <li style="display:inline;"><%=address.streetname%> <%=address.nrblock%>/<%=address.nrflat%>, <%=address.zipcode%> <%=address.town%>
+
+                         <a class="btn btn-xs btn-warning" 
+                           href="/patients/<%=patient._id %>/addresses/<%=address._id %>/edit">Edytuj adres</a>
+                              
+                        <form style="display:inline;" action="/patients/<%=patient._id %>/addresses/<%=address._id%>?_method=DELETE" method="POST">
+                            <button class="btn btn-xs btn-danger">Usuń adres</button>
+                        </form>
+                        </li>
+                    </ul>
                     <% })%>
-                    <% } %>
-                    <% include ../partials/patient-footer%>
-               
-          
-</div>
+                 <% } %>
+<h3>Skierowania pacjenta:</h3>
+       <% if(patient.refferals ===null || patient.refferals === undefined || patient.refferals.length ===0){%>
+                       <p>Brak adresu...</p>
+                       <a class="btn btn-xs btn-success" href="/patients/<%= patient._id%>/refferals/new">Dodaj nowe skierowanie</a>
+                   <% }else{%>
+                    <% patient.refferals.forEach(function(refferal){ %>
+                    <ul>
+                        <li style="display:inline;"><%=refferal.refdate%> - <%=refferal.clinicname%>, <%=refferal.doctor%> <%=refferal.diseases%><br/>
+                        <a class="btn btn-xs btn-success" href="/patients/<%= patient._id%>/refferals/new">Dodaj nowe skierowanie</a>
+                         <a class="btn btn-xs btn-warning" 
+                           href="/patients/<%=patient._id %>/addresses/<%=refferal._id %>/edit">Edytuj adres</a>
+                              
+                        <form style="display:inline;" action="/patients/<%=patient._id %>/addresses/<%=refferal._id%>?_method=DELETE" method="POST">
+                            <button class="btn btn-xs btn-danger">Usuń adres</button>
+                        </form>
+                        </li>
+                    </ul>
+                    <% })%>
+                 <% } %>
+</div>          
 <% include ../partials/footer %>

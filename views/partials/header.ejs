@@ -5,45 +5,61 @@
         <title>
           PhysioBase 
         </title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
- 
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+
         <link rel="stylesheet" type="text/css" href="/stylesheets/main.css">
         <link rel="stylesheet" type="text/css" href="/stylesheets/menu.css">
     </head>
     <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between">
-   
-        <a class="navbar-brand" href="/">PhysioBase</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-          </button>
+        
+<nav class="navbar navbar-default">
+   <div class="container-fluid">
+       <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbarSupportedContent" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">PhysioBase</a>
+       </div>
+        
+        
          
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                  <li class="nav-item active">
-                    <a class="nav-link" href="/">Strona główna</a>
+            <ul class="nav navbar-nav">
+                  <li class="active">
+                    <a href="/">Strona główna</a>
                   </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="/patients">Pacjenci</a>
+                  <li>
+                    <a href="/patients">Pacjenci</a>
                   </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">Mapa</a>
+                  <li>
+                    <a href="#">Mapa</a>
                   </li>
             </ul>
         </div>
        
              <ul class="nav navbar-nav navbar-right ">
                  <% if(!currentUser){ %>
-                <li class="btn btn-success mr-sm-2"><a href="/login">Zaloguj się</a></li>
-                <li class="btn btn-info my-2 my-sm-0"><a href="/register">Zarejestruj się</a></li>
+                <li ><a class="btn btn-success"href="/login">Zaloguj się</a></li>
+                <li ><a class="btn btn-info" href="/register">Zarejestruj się</a></li>
                 <% } else { %>
-                <li class="navbar-text mr-sm-2"><a href="#">Witaj, <%= currentUser.username %></a></li>
-                <li class="btn btn-warning my-2 my-sm-0"><a href="/logout">Wyloguj</a></li>
+                <li class="navbar-text"><a href="#">Witaj, <%= currentUser.username %></a></li>
+                <li ><a class="btn btn-warning" href="/logout">Wyloguj</a></li>
                 <% } %>
              </ul>
-       
+    </div>   
  </nav>
 </br>
+<div class="container">
+     <% if(error && error.length>0){ %>
+     <div class="alert alert-danger" role="alert"><%= error %></div>
+     <% }%>
+     <% if(success && success.length>0){ %>
+      <div class="alert alert-success" role="alert"><%= success %></div>
+      <% } %>
+ </div>
+ 
  
