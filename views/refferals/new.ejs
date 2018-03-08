@@ -1,34 +1,35 @@
 <% include ../partials/header %>
- <div class="container-fluid">
-        <form action="/refferals" method="POST">
-           <h3>Nowe skierowanie:</h3>
+ <div class="container">
+        <form action="/patients/<%= patient._id%>/refferals" method="POST">
+           <h3>Nowe skierowanie pacjenta - "<%=patient.firstname%> <%=patient.lastname%>":</h3>
                 <hr>
                 <div class="col-md-6 col-sm-12">
                 <label>Data skierowania:</label>
-                <input class="form-control" type="text" name="refdate">
+                <input class="form-control" type="text" name="refferal[refdate]">
                 </div>
                 <div class="col-md-6 col-sm-12">
                 <label>Lekarz kierujący:</label>
-                <select data-live-search="true" class="selectpicker">
+                <select name="refferal[doctor]" data-live-search="true" class="selectpicker" id="selectDoctor">
 
                     <% doctors.forEach(function(doctor){ %>
-                    <option value="<%=doctor.nrpwz%>"><%= doctor.nrpwz%> - <%=doctor.firstname %> <%= doctor.lastname %></option>
+                    <option value="<%=doctor._id%>"><%= doctor.nrpwz%> - <%=doctor.firstname %> <%= doctor.lastname %></option>
                     <% }) %>
                 </select>
                 </div>
                  <div class="col-md-6 col-sm-12">
                 <label>Jednostka kierująca:</label>
-                <select data-live-search="true" class="selectpicker">
+                <select name="refferal[clinic]" data-live-search="true" class="selectpicker" id="selectClinic">
                     <% clinics.forEach(function(clinic){ %>
-                    <option><%= clinic.regon%> - <%=clinic.name %></option>
+                    <option value="<%=clinic._id%>"><%= clinic.regon%> - <%=clinic.name %></option>
                     <% }) %>
                 </select>
                 </div>
                 <div class="col-md-12 col-sm-12">
                     <label>Choroby:</label>
-                    <select data-live-search="true" class="selectpicker" multiple>
+                    <select name="refferal[diseases]" id="selectDisease" data-live-search="true" class="selectpicker" multiple >
                      <% diseases.forEach(function(disease){ %>
-                    <option><%= disease.code%> - <%=disease.name %></option>
+                    
+                    <option value="<%= disease._id%>"><%= disease.code%> - <%=disease.name %></option>
                     <% }) %>
                     </select>
                 </div>

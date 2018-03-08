@@ -32,7 +32,7 @@ router.post("/", function(req, res){
                 foundPatient.addresses.push(address._id);
                foundPatient.save();
                 req.flash("success", "Dodano nowy adres");
-                res.redirect("edit");
+                res.redirect("back");
                 }
             });
         }
@@ -68,17 +68,17 @@ router.put("/:address_id", function(req, res){
 router.delete("/:addressId", function(req, res) {
     var ObjectID = new mongoose.Types.ObjectId;
     Patient.findById(req.params.id, function(err, patient){
-        if(err){
-            console.log("oops");
-        }else{
-            patient.update({_id: new ObjectID(req.params.id)}, 
-            { $pull: {"addresses._id": new ObjectID(req.params.addressId) }}, 
+      Address.findByIdAndRemove(req.params.addressId, function(err, address){
+          patient.update({_id: mongoose.Types.ObjectId(req.params.id)}, 
+            { $pull: {"refferal._id": mongoose.Types.ObjectId(req.params.addressId) }}, 
             function(err, val){
                 if(err){
                     console.log(val);
                 }
             });
-        }
+      
+          res.redirect("/patients/"+req.params.id+"/show");
+      })
     })
 });
 
