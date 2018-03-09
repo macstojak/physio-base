@@ -31,7 +31,7 @@
                     <% patient.refferals.forEach(function(refferal){ %>
                     
                     <ul>
-                        <li style="display:inline;"><%=refferal.refdate%> - <%=refferal.clinic%>, <%=refferal.doctor%> <%=refferal.diseases%><br/>
+                        <li style="display:inline;"><%=refferal.refdate%> - <%=clinic.name%>, <%=doctor.lastname%> <%=doctor.firstname%> - <%=diseases.code%><br/>
                        
                          <a class="btn btn-xs btn-warning" 
                            href="/patients/<%=patient._id %>/refferals/<%=refferal._id %>/edit">Edytuj skierowanie</a>

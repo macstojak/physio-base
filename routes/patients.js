@@ -2,6 +2,9 @@ var express = require("express"),
     Patient = require("../models/patient"),
     Address= require("../models/patientaddress"),
     Refferal = require("../models/refferal"),
+    Clinic = require("../models/clinic"),
+    Disease = require("../models/disease"),
+    Doctor = require("../models/doctor"),
     middleware = require("../middleware"),
     router = express.Router({mergeParams: true});
 
@@ -22,13 +25,28 @@ router.get("/index", middleware.isLoggedIn, function(req, res){
     });
 });
 // SHOW - ONE PATIENT - ALL INFO
-router.get("/:id/show", middleware.isLoggedIn, function(req, res){
-    Patient.findById(req.params.id).populate("addresses refferals").exec(function(err, foundPatient){
+router.get("/:id/show", function(req, res){
+    Patient.findById(req.params.id).populate(
+        [{
+            path: "refferals",
+            model: "Refferal",
+            populate: [
+                {path:"doctor", model: "Doctor"}, 
+                {path:"clinic", model:"Clinic"}, 
+                {path:"diseases", model:"Disease"}]
+        },
+        {
+           path:"addresses",
+           model:"PatientAddress"
+        }
+        ]
+        ).exec(function(err, foundPatient){
         if(err){
             console.log(err);
-        }
-            res.render("patients/show", {patient: foundPatient});
-    });
+        }else{
+                console.log(foundRefferal);
+                res.render("patients/show", {patient: foundPatient, addresses: foundPatient.addresses, refferals: foundRefferal, clinic: foundRefferal.clinic, doctor: foundRefferal.doctor, diseases: foundRefferal.diseases});
+                }
 });
 
 router.get("/new", middleware.isLoggedIn, function(req, res){

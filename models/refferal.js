@@ -9,7 +9,7 @@ var mongoose = require("mongoose"),
             }
         },
         refdate: String,
-        doctor: {
+        doctord: {
             id:{
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "Doctor"
