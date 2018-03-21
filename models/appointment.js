@@ -1,18 +1,20 @@
 //WIZYTA LEKARZA REH
 
 var mongoose = require("mongoose"),
+    autopopulate = require("mongoose-autopopulate"),
     appointmentSchema = new mongoose.Schema({
         physiotherapists:[{
             type: mongoose.Schema.Types.ObjectId,
-            ref: "User"
+            ref: "User",
+            autopopulate: true
             }
         ],
         appointmentdate: String,
         supervisor: {
-            id: {
+            
             type: mongoose.Schema.Types.ObjectId,
-            ref: "User"
-            }
+            ref: "User",
+            autopopulate: true 
         },
         month: String,
         year: String,
@@ -21,8 +23,15 @@ var mongoose = require("mongoose"),
         diseases: [
             {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Disease"
+            ref: "Disease",
+            autopopulate: true
             }
-        ]
+        ],
+        visits: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Visit",
+            autopopulate: true
+        }]
     });
+    appointmentSchema.plugin(autopopulate);
 module.exports = mongoose.model("Appointment", appointmentSchema);

@@ -10,15 +10,18 @@ var express     = require("express"),
     Patient = require("./models/patient"),
     Address = require("./models/patientaddress"),
     Refferal = require("./models/refferal"),
+    Appointment = require("./models/appointment"),
     seedDB      = require("./seeds"),
+    expressBack = require("express-back"),
     flash       = require("connect-flash");
-    // seedDB();
+    seedDB();
     
 //routes in here VVVV    
 
 var indexRoutes = require("./routes/index"),
     patientRoutes = require("./routes/patients"),
     addressRoutes = require("./routes/addresses"),
+    appointmentRoutes = require("./routes/appointments"),
     refferalRoutes = require("./routes/refferals");
     
 mongoose.connect("mongodb://localhost/physio_base");
@@ -34,6 +37,7 @@ app.use(require("express-session")({
     resave: false,
     saveUninitialized: false
 })); //express-session
+app.use(expressBack());
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
@@ -51,7 +55,12 @@ app.use(function(req, res, next){
 app.use("/", indexRoutes);
 app.use("/patients", patientRoutes);
 app.use("/patients/:id/addresses", addressRoutes);
+app.use("/refferals", refferalRoutes);
+app.use("/refferals/:id", refferalRoutes);
+app.use("/appointments", appointmentRoutes);
 app.use("/patients/:id/refferals", refferalRoutes);
+app.use("/refferals/:id/appointments", appointmentRoutes);
+
 
 
 //ROUTES

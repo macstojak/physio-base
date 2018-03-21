@@ -1,0 +1,109 @@
+<% include ../partials/header %>
+ <div class="container">
+        <form action="/patients/<%= patient._id%>/refferals/<%=refferal._id%>?_method=PUT" method="POST">
+           <h3>Edytuj skierowanie pacjenta - "<%=patient.firstname%> <%=patient.lastname%>" z dnia <%= refferal.refdate %>:</h3>
+                <hr>
+                <div class="col-md-6 col-sm-12">
+                <label>Data skierowania:</label>
+                <input class="form-control" type="text" name="refferal[refdate]" value="<%= refferal.refdate%>">
+                </div>
+                <div class="col-md-6 col-sm-12">
+                <label>Lekarz kierujący:</label>
+                <select name="refferal[doctor]" data-live-search="true" class="selectpicker" id="selectDoctor" value="<%=refferal.doctor%>">
+<!-- ZRÓB PORZĄDEK Z LEKARZEM I RESZTĄ EDITU CLINIC, DISEASES -->
+                    <% doctors.forEach(function(doctor){%>
+                       <% if(refferal.doctor._id.equals(doctor._id)){ %>
+                       <% var selection = "selected" %>
+                       <% } %>
+                        <option value="<%= doctor._id%>" <%= selection %>>
+                            <%= doctor.nrpwz%> - <%=doctor.firstname %> <%= doctor.lastname %>
+                        </option>
+                    <% }) %>
+                </select>
+                </div>
+                 <div class="col-md-6 col-sm-12">
+                <label>Jednostka kierująca:</label>
+                <select name="refferal[clinic]" data-live-search="true" class="selectpicker" id="selectClinic" value="<%= refferal.clinic%>">
+                    <% clinics.forEach(function(clinic){ %>
+                    <% if(refferal.clinic._id.equals(clinic._id)){ %>
+                       <% var selection = "selected" %>
+                       <% } %>
+                    <option value="<%=clinic._id%>" <%= selection %>><%= clinic.regon%> - <%=clinic.name %></option>
+                    <% }) %>
+                </select>
+                </div>
+                <div class="col-md-12 col-sm-12">
+                    <label>Choroby:</label>
+                    <select name="refferal[diseases]" id="selectDisease" data-live-search="true" class="selectpicker" multiple value="<%= refferal.diseases%>">
+                     <% diseases.forEach(function(disease){ %>
+                              <%refferal.diseases.forEach(function(refdis){%>
+                                    <% if(refdis._id.equals(disease._id)){ %>
+                                   <% var selection = "selected" %>
+                                   <% } %>
+                                <option value="<%= disease._id%>" <%= selection%>><%= disease.code%> - <%=disease.name %></option>
+                                <% }) %>
+                    <% }) %>
+                    </select>
+                </div>
+                
+                 <h3>Skierowania na zabiegi:</h3>
+                   <% if(refferal.appointments ===null || refferal.appointments === undefined || refferal.appointments.length ===0){%>
+                       <p>Brak skierowań na zabiegi...</p>
+                       <a class="btn btn-xs btn-success" href="/refferals/<%= refferal._id%>/appointments/new">Nowe skierowanie na zabiegi</a>
+                   <% }else{%>
+                    <a class="btn btn-xs btn-success" href="/patients/<%= patient._id%>/appointments/new">Nowe skierowanie na zabiegi</a>
+                    <% refferal.appointments.forEach(function(appointment){ %>
+                    
+                    <ul>
+                        <li style="display:inline;">
+                            <%=appointment.appointmentdate%> - 
+                            <br>
+                            
+                            <br>
+                            Na liście wizyt:
+                            <%= appointment.month %> <%= appointment.year %>
+                            <br>
+                            Nr. kolejki: <%= appointment.queue %>
+                            <br>
+                            Stan pacjenta:<%=appointment.states%> 
+                            <br>
+                            
+                            Osoba nadzorująca:
+                            <% if(appointment.supervisor === undefined || appointment.supervisor === null ){%>
+                            Brak osoby nadzorującej
+                            <% }else{ %>
+                            <%= appointment.supervisor.lastname%> - 
+                            <%= appointment.supervisor.firstname %>
+                            <% } %>
+                            <br>
+                            <ul>Choroby:
+                            <% appointment.diseases.forEach(function(disease){ %>
+                            <li><%=disease.code%> - <%=disease.name%><br/></li>
+                            <% })%>    
+                            </ul>
+                            Fizjoterapeuta/-ci:
+                             <% appointment.physiotherapists.forEach(function(physiotherapist){ %>
+                            <li><%= physiotherapist.lastname%> - 
+                            <%= physiotherapist.firstname %><br/></li>
+                            <% })%> 
+                            
+                         <a class="btn btn-xs btn-warning" 
+                           href="/patients/<%=patient._id %>/appointments/<%=appointment._id %>/edit">Edytuj skierowanie</a>
+                               
+                        <form style="display:inline;" action="/patients/<%=patient._id %>/appointments/<%=appointment._id%>?_method=DELETE" method="POST">
+                            <button class="btn btn-xs btn-danger">Usuń skierowanie na zabiegi</button>
+                        </form>
+                        </li>
+                    </ul>
+                    <% })%>
+                 <% } %>
+                
+                
+                <div class="col-md-6 col-sm-12">
+                    <button class="btn btn-xs btn-success centered">Zapisz pacjenta</button>
+                </div>
+            
+        </form>
+    </div>
+
+<% include ../partials/footer %>

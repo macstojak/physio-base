@@ -1,27 +1,33 @@
 //SKIEROWANIE LEKARZA POZ
 
 var mongoose = require("mongoose"),
+    autopopulate = require("mongoose-autopopulate"),
     refferalSchema = new mongoose.Schema({
-        clinicname: {
-            id: {
+        clinic: {
+            
                 type: mongoose.Schema.Types.ObjectId,
-                ref: "Clinic"
-            }
+                ref: "Clinic",
+                autopopulate: true
+            
         },
         refdate: String,
-        doctord: {
-            id:{
+        doctor: {
+            
                 type: mongoose.Schema.Types.ObjectId,
-                ref: "Doctor"
-            }
+                ref: "Doctor",
+                autopopulate: true
+            
         },
         diseases: [{
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Disease"
+            ref: "Disease",
+                autopopulate: true
             }],
         appointments:[{
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Appointment"
+            ref: "Appointment",
+                autopopulate: true
         }]
     });
+    refferalSchema.plugin(autopopulate);
 module.exports = mongoose.model("Refferal", refferalSchema);

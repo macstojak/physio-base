@@ -15,38 +15,70 @@ router.get('/', function(req, res){
 router.get("/index", middleware.isLoggedIn, function(req, res){
     Patient.find({}, function(err, allPatients){
         if(err){
-
             console.log(err);
         }
         else{
-            
             res.render("patients/index", {patient: allPatients});
         }
     });
 });
 // SHOW - ONE PATIENT - ALL INFO
 router.get("/:id/show", function(req, res){
-    Patient.findById(req.params.id).populate(
-        [{
-            path: "refferals",
-            model: "Refferal",
-            populate: [
-                {path:"doctor", model: "Doctor"}, 
-                {path:"clinic", model:"Clinic"}, 
-                {path:"diseases", model:"Disease"}]
-        },
-        {
-           path:"addresses",
-           model:"PatientAddress"
-        }
-        ]
-        ).exec(function(err, foundPatient){
-        if(err){
+    //  PIERWSZE ROZWIĄZANIE POPULACJI - DEEP POPULATE PLUGIN
+    // Patient.findById(req.params.id).deepPopulate("addresses refferals.diseases refferals.doctor refferals.clinic").exec(function(err, foundPatient){
+    //      if(err){
+    //         console.log(err);
+    //     }else{
+    //             console.log(foundPatient.refferals);
+    //             res.render("patients/show", {patient: foundPatient, addresses: foundPatient.addresses, clinic: foundPatient.refferals.clinic, doctor: foundPatient.refferals.doctor, refferals:foundPatient.refferals});
+    //             }   
+    // })
+    
+    // DRUGIE ROZWIĄZANIE POPULACJI - DEEP POPULATE REMOTE
+//     Patient.findById(req.params.id).populate(
+//         [{
+//             path: "refferals",
+//             model: "Refferal",
+//             populate: 
+//                 {path:"doctor", model: "Doctor"} 
+              
+//         },
+//         {
+//             path: "refferals",
+//             model: "Refferal",
+//             populate:
+//                 {path:"clinic", model:"Clinic"}, 
+//         },
+//         {
+//             path: "refferals",
+//             model: "Refferal",
+//             populate: [
+//                 {path:"diseases", model:"Disease"}
+//                 ]
+//         },
+//         {
+//           path:"addresses",
+//           model:"PatientAddress"
+//         }
+//         ]
+//         ).exec(function(err, foundPatient){
+//         if(err){
+//             console.log(err);
+//         }else{
+//                 console.log(foundPatient.refferals);
+//                 res.render("patients/show", {patient: foundPatient, addresses: foundPatient.addresses, refferals:foundPatient.refferals});
+//                 }
+// });
+
+//TRZECIE ROZWIAZANIE - AUTOPOPULATE PLUGIN
+Patient.findById(req.params.id, function(err, foundPatient){
+         if(err){
             console.log(err);
         }else{
-                console.log(foundRefferal);
-                res.render("patients/show", {patient: foundPatient, addresses: foundPatient.addresses, refferals: foundRefferal, clinic: foundRefferal.clinic, doctor: foundRefferal.doctor, diseases: foundRefferal.diseases});
-                }
+            console.log(req.session);
+            res.render("patients/show", {patient: foundPatient, addresses: foundPatient.addresses, refferals:foundPatient.refferals});
+        }   
+    })
 });
 
 router.get("/new", middleware.isLoggedIn, function(req, res){

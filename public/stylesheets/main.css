@@ -9,6 +9,7 @@ body{
 	background-color: #fff;
 }
 h1{
+	font-family: 'PT Sans', sans-serif;
 	margin: 5px;
 	padding: 10px;
 	text-align: center;
@@ -16,7 +17,11 @@ h1{
 	font-size: 3rem;
 }
 h2{
+	font-family: 'PT Sans', sans-serif;
 	color: #fff;
+}
+h3, h4{
+	font-family: 'PT Sans', sans-serif;
 }
 #tile1, #tile2, #tile3, #tile4{
 	background-color: gray;
@@ -140,3 +145,33 @@ a:active {
 .no-margin{
     margin: auto;
 }
+
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover{
+	color: #3c40e8;	
+}
+.navbar-default .navbar-nav>li>a {
+    color: #418baf;
+}
+.nav .selected{
+	background-color: white;
+}
+.navbar-brand{
+	font-size: 1.5em;
+	font-weight: bold;
+}
+li{
+	font-family: 'PT Sans', sans-serif;
+	font-size: 1.2em;
+}
+body{
+     background-image: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%);
+}
+.navbar{
+	font-family: 'Mina', sans-serif;
+	font-size: 1.3em;
+background-color: rgba(255,255,255,0.45);	
+}
+#map {
+        height: 400px;
+        width: 100%;
+       }

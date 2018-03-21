@@ -2,6 +2,7 @@ var express = require("express"),
     router = express.Router();
 var passport = require("passport");
 var User = require("../models/user"),
+Patient = require("../models/patient"),
     Refferal = require("../models/refferal")
  
  
@@ -11,6 +12,8 @@ router.get("/", function(req, res) {
     res.render("landing");
 
 });
+
+
 router.get('/register', function(req, res) {
     res.render('register', { });
 });

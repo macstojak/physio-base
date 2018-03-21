@@ -1,0 +1,70 @@
+<% include ../partials/header %>
+<div class="container-fluid">    
+<h1 class="font-spaced" >Rejestr skierowań: </h1>
+    <div class="container">
+                <% patients.forEach(function(patient){ %>
+                <div class="col-md-6">
+                <h3></h3>
+                <h3><%= patients.indexOf(patient) + 1 %>. <%= patient.lastname%> <%= patient.firstname %> - <%= patient.pesel%> </h3>
+                 <a class="btn btn-xs btn-success" 
+                            href="/patients/<%= patient._id%>/refferals/new">Dodaj nowe skierowanie</a>
+                <% console.log(patient); %>
+                <% console.log(patient.refferals); %>
+                        <% if(patient.refferals === undefined || patient.refferals === null){%>
+                        <tr>
+                            <th scope="row">Brak skierowań ...  
+                            <div class="text-right">
+                            <a class="btn btn-xs btn-success" 
+                            href="/patients/<%= patient._id%>/refferals/new">Dodaj nowe skierowanie</a>
+                            </div>
+                            </th>
+                        </tr>
+                        <% }else{ %>
+                        <ul>
+                        <% patient.refferals.forEach(function(refferal){%>
+                        <h3>Skierowanie <%= patient.refferals.indexOf(refferal) +1%>:</h3>
+                        <br>
+                            <li>Data wystawienia skierowania: <%=refferal.refdate%></li> - 
+                            <li>Nr regonu jednostki kierującej: <%=refferal.clinic.regon%></li> 
+                             <li>Nazwa jednostki kierującej: <%=refferal.clinic.name%></li>
+                            <li>Lekarz kierujący: <%=refferal.doctor.lastname%> <%=refferal.doctor.firstname%> - <%=refferal.doctor.nrpwz%></li> 
+                            <br>
+                            Choroby: 
+                                <ul>
+                                <% refferal.diseases.forEach(function(disease){ %>
+                                 <li><%=disease.code%> - <%=disease.name%>
+                                       <% if(refferal.diseases[refferal.diseases.length-1] == disease){ %>
+                                    ;
+                                    <% }else{ %>
+                                    , <% } %>
+                                
+                                 </li> 
+                               
+                                  
+                                    <% }) %>
+                                    </ul>
+                            
+                            <li>
+                                <a class="btn btn-xs btn-info" 
+                                    href="/patients/<%= patient._id %>/refferals/<%=refferal._id%>/show">Dane skierowania</a>
+                            </li>
+                                <li><a class="btn btn-xs btn-warning" 
+                                   href="/patients/<%= patient._id %>/refferals/<%=refferal._id %>/edit">Edytuj skierowanie</a>
+                                </li>
+                                <li>
+                                <form class="delete-form" action="/patients/<%= patient._id %>/refferals/<%=refferal._id %>?_method=DELETE" method="POST">
+                                    <input type="submit" class="btn btn-xs btn-danger" value="Usuń skierowanie">
+                                </form>
+                                </li>
+                            
+                
+           
+                    
+            <% }) %>  </ul> <% } %>
+            </div>
+        <% }) %>
+       
+    </div>
+</div>
+<% include ../partials/footer %>
+

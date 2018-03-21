@@ -1,0 +1,103 @@
+<% include ../partials/header %>
+ <div class="container">
+        <form action="/refferals/<%= refferal._id%>/appointments" method="POST">
+           <h3>Nowa wizyta:</h3>
+                <hr>
+                <div class="col-md-6 col-sm-12">
+                <label>Data wizyty:</label>
+                <input class="form-control" type="text" name="appointment[appointmentdate]">
+                </div>
+                <div class="col-md-6 col-sm-12">
+                <label>Rok wizyty:</label>
+                <input class="form-control" type="text" name="appointment[year]">
+                </div>
+                <div class="col-md-6 col-sm-12">
+                <label>Miesiąc wizyty:</label>
+                <select name="appointment[month]" data-live-search="true" class="selectpicker" id="selectMonth">
+                    <option>styczeń</option>
+                    <option>luty</option>
+                    <option>marzec</option>
+                    <option>kwiecień</option>
+                    <option>maj</option>
+                    <option>czerwiec</option>
+                    <option>lipiec</option>
+                    <option>sierpień</option>
+                    <option>wrzesień</option>
+                    <option>październik</option>
+                    <option>listopad</option>
+                    <option>grudzień</option>
+                </select>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                <label>Stan pacjenta:</label>
+                <select class="form-control" type="radio" name="appointment[state]">
+                <option>pilny</option>
+                <option>stabilny</option>
+                <option>kombatant</option>
+                <option>osoba represjonowana</option>
+                </select>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                <label>Nr kolejki:</label>
+                <input class="form-control" type="text" name="appointment[queue]">
+                </div>
+                <div class="col-md-6 col-sm-12">
+                <label>Osoba prowadząca:</label>
+                <select name="appointment[supervisor]" data-live-search="true" class="selectpicker" id="selectSupervisor">
+                 <% if(supervisors === "undefined" || supervisors === "0" || supervisors.length === 0){ %>
+                    
+                     <option disabled>Brak osób nadzorujących</option>
+                           
+                        <% } else { %>
+                        <% supervisors.forEach(function(supervisor){ %>
+                       <% if(supervisor._id.equals(supervisor._id)){ %>
+                           <% var selection = "selected" %>
+                           <% } %>
+                            <option value="<%= supervisor._id%>" <%= selection %>>
+                                <%= supervisor.nrpwz%> - <%=supervisor.firstname %> <%= supervisor.lastname %>
+                            </option>
+                        <% }) %>
+                    <% } %>
+                </select>
+                </div>
+                <div class="col-md-12 col-sm-12">
+                    <label>Choroby:</label>
+                    <select name="appointment[diseases]" id="selectDisease" data-live-search="true" class="selectpicker" multiple >
+                    
+                    <% diseases.forEach(function(disease){%>
+                       <% if(appointment.disease.doctor._id.equals(disease._id)){ %>
+                       <% var selection = "selected" %>
+                       <% } %>
+                        <option value="<%= disease._id%>" <%= selection %>>
+                            <%= disease.nrpwz%> - <%=disease.firstname %> <%= disease.lastname %>
+                        </option>
+                    <% }) %>
+                    
+                    </select>
+                </div>
+                <label>Fizjoterapeuta:</label>
+                <select name="appointment[physioterapists]" data-live-search="true" class="selectpicker" id="selectPhysiotherapist">
+                    <% if(physiotherapists === "undefined" || physioterapists === "0"){ %>
+                      <option disabled>Brak fizjoterapeutów</option>
+                    
+                    <% }else{ %>
+                      <% physiotherapists.forEach(function(physiotherapist){%>
+                           <% if(appointment.physiotherapist._id.equals(physiotherapist._id)){ %>
+                           <% var selection = "selected" %>
+                           <% } %>
+                            <option value="<%= physiotherapist._id%>" <%= selection %>>
+                                <%= physiotherapist.nrpwz%> - <%=physiotherapist.firstname %> <%= physiotherapist.lastname %>
+                            </option>
+                        <% }) %>
+                    <% } %>
+                </select>
+                </div>
+               
+                <div class="col-md-6 col-sm-12">
+                    <button class="btn btn-xs btn-success centered">Zapisz pacjenta</button>
+                </div>
+            
+        </form>
+    </div>
+
+<% include ../partials/footer %>

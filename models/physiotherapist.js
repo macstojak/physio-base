@@ -4,10 +4,8 @@ var mongoose = require("mongoose"),
         lastname: String,
         pesel: String,
         address: {
-            id:{
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "PhysiotherapistAddress"
-            }
         }
     });
 module.exports = mongoose.model("Physiotherapist", physiotherapistSchema);

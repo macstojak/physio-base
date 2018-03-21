@@ -1,12 +1,49 @@
 var mongoose = require("mongoose");
-var Clinic = require("./models/clinic");
-
-var data =[{name:"Centrum Medyczne Hansa",regon:"200212575", streetname:"Choroszczańska", streetnr:"24", zipcode:"15-732", town:"Białystok"},{name:"Centrum Rehabilitacji pw. Św. Rocha",regon:"040102838", streetname:"Rybaki", streetnr:"1", zipcode:"18-400", town:"Łomża"},{name:"EVAMED Safiejko-Barańska Sp.J.",regon:"200653894", streetname:"Rzemieślnicza ", streetnr:"31", zipcode:"15-773", town:"Białystok"},{name:"Gabinet Lekarza Rodzinnego Wojskowej Specjalistycznej Przychodni Lekarskiej",regon:"050235520", streetname:"Lipowa ", streetnr:"47", zipcode:"15-424", town:"Białystok"},{name:"Łomżyńskie Centrum Medyczne Sp.z.o.o.",regon:"450672975", streetname:"Ks. Kardynała Wyszyńskiego ", streetnr:"9", zipcode:"18-400", town:"Łomża"},{name:"MEDIMED Przychodnia Lekarzy Rodzinnych",regon:"052248283", streetname:"Tuwima ", streetnr:"1/2/2", zipcode:"15-746", town:"Białystok"},{name:"MULTI-MEDICA Przychodnia Lekarska",regon:"052009785", streetname:"Świętokrzyska", streetnr:"5A lok. U5", zipcode:"15-843", town:"Białystok"},{name:"Niepubliczny Lekarski Zakład Opieki Zdrowotnej \"WA-MED.\" s.c.",regon:"050698177", streetname:"Kryńska ", streetnr:"32", zipcode:"16-010", town:"Wasilków"},{name:"Niepubliczny Zakład Postawowej Opieki Zdrowotnej",regon:"050842094", streetname:"Zambrowska ", streetnr:"18", zipcode:"16-001", town:"Kleosin"},{name:"NZOZ \"Alfa-Med\"Sp.p.",regon:"052241542", streetname:"Zwierzyniecka ", streetnr:"14", zipcode:"15-333", town:"Białystok"},{name:"NZOZ \"Fidos\" s.c.",regon:"052130877", streetname:"Siewna ", streetnr:"2", zipcode:"15-183", town:"Białystok"},{name:"NZOZ \"KENDRON\"",regon:"050363910", streetname:"Marjańskiego ", streetnr:"3/201", zipcode:"15-420", town:"Białystok"},{name:"NZOZ \"Na Siewnej\"",regon:"052130593", streetname:"Siewna", streetnr:" 2", zipcode:"15-183", town:"Białystok"},{name:"NZOZ \"Na Swobodnej\" Dąbrowski i Partnerzy, Spółka Partnerska Lekarzy",regon:"052218320", streetname:"Swobodna ", streetnr:"24", zipcode:"15-756", town:"Białystok"},{name:"NZOZ \"OMEGA\" s.c.",regon:"450716626", streetname:"Wojska Polskiego ", streetnr:"161", zipcode:"18-400", town:"Łomża"},{name:"NZOZ \"Poradnia Rodzinna\"",regon:"200081736", streetname:"Ks. St. Andrukiewicza ", streetnr:"4/3u", zipcode:"15-204", town:"Białystok"},{name:"NZOZ \"Poradnia Rodzinna\" Bogumiła Augustynowicz",regon:"050831162", streetname:"Baranowicka ", streetnr:"113", zipcode:"15-501", town:"Białystok"},{name:"NZOZ \"Przy Fabrycznej\"",regon:"052234588", streetname:"Fabryczna ", streetnr:"27 lok. 2/12", zipcode:"15-471", town:"Białystok"},{name:"NZOZ \"Zdrowie\" Przychodnia na Mieszka Sp.p.",regon:"052221019", streetname:"Mieszka ", streetnr:"I 8C lok.15", zipcode:"15-054", town:"Białystok"},{name:"NZOZ Centrum Medyczne Słoneczny Stok",regon:"052139312", streetname:"Witosa ", streetnr:"36", zipcode:"15-660", town:"Białystok"},{name:"NZOZ COR-MED S.c.",regon:"052225336", streetname:"Antoniukowska", streetnr:" 11A", zipcode:"15-740", town:"Białystok"},{name:"NZOZ DOMESTICUS SP.P.",regon:"050852342", streetname:"Storczykowa ", streetnr:"5", zipcode:"15-644", town:"Białystok"},{name:"NZOZ EDMED s.c.",regon:"052009466-00026", streetname:"Piasta", streetnr:" 14", zipcode:"15-044", town:"Białystok"},{name:"NZOZ Jolanta Krajewska",regon:"450183006", streetname:"Gen. Wł. Sikorskiego", streetnr:" 95a", zipcode:"18-400", town:"Łomża"},{name:"NZOZ Lekarze Rodzinni \"3\" Sp.z.o.o.",regon:"451183066", streetname:"Reymonta", streetnr:" 1A/1", zipcode:"18-400", town:"Łomża"},{name:"NZOZ MARMED",regon:"450191247", streetname:"Al. Piłsudskiego ", streetnr:"82/112", zipcode:"18-400", town:"Łomża"},{name:"NZOZ MEDICUS s.c.",regon:"050700566", streetname:"Mickiewicza ", streetnr:"21", zipcode:"16-070", town:"Choroszcz"},{name:"NZOZ Na Swobodnej",regon:"052218320", streetname:"Swobodna ", streetnr:"24", zipcode:"15-756", town:"Białystok"},{name:"NZOZ Podlaskie Centrum Medyczne",regon:"050003985", streetname:"Transportowa ", streetnr:"4", zipcode:"15-399", town:"Białystok"},{name:"NZOZ Poradnia Lekarza Rodzinnego Wanda Chmielewska",regon:"050253883", streetname:"Piastowska", streetnr:" 5", zipcode:"15-207", town:"Białystok"},{name:"NZOZ Poradnia Rodzinna Elżbieta Giedrojć",regon:"050662618", streetname:"Ks. J. Popiełuszki ", streetnr:"71", zipcode:"15-657", town:"Białystok"},{name:"NZOZ Praktyka Lekarska \"Białostoczek\"",regon:"052219301", streetname:"Radzymińska ", streetnr:"16 lok.25", zipcode:"15-863", town:"Białystok"},{name:"NZOZ Praktyka Lekarzy Rodzinnych \"Przy Fabrycznej\"",regon:"052234588", streetname:"Fabryczna ", streetnr:"27 lok. 2/12", zipcode:"15-471", town:"Białystok"},{name:"NZOZ Przychodnia Lekarska \"Dobra\" Sp.p.",regon:"052220735", streetname:"Dobra", streetnr:" 6", zipcode:"15-034", town:"Białystok"},{name:"NZOZ Przychodnia Lekarska \"HIPOKRATES\"",regon:"050800760", streetname:"Szosa Baranowicka", streetnr:" 80", zipcode:"15-509", town:"Białystok"},{name:"NZOZ Przychodnia Lekarska \"Dziesięciny\"",regon:"052197054", streetname:"Gen. Józefa Hallera", streetnr:" 8", zipcode:"15-814", town:"Białystok"},{name:"NZOZ Przychodnia Lekarska \"Na Zwierzynieckiej\" Sp.",regon:"052218661", streetname:"Zwierzyniecka", streetnr:" 9/25", zipcode:"15-312", town:"Białystok"},{name:"NZOZ Przychodnia Lekarska \"Śródmieście\" sp.p",regon:"052223573", streetname:"Białówny ", streetnr:"11", zipcode:"15-437", town:"Białystok"},{name:"NZOZ Przychodnia Lekarska ELMED",regon:"451154923", streetname:"Kazańska", streetnr:" 2", zipcode:"18-400", town:"Łomża"},{name:"NZOZ Przychodnia Lekarzy Rodzinnych \"Na Siewnej\"",regon:"052130593", streetname:"Siewna", streetnr:" 2", zipcode:"15-183", town:"Białystok"},{name:"NZOZ Przychodnia Rodzinna \"MEDVITA\" s.c.",regon:"052233324", streetname:"Stroma ", streetnr:"11/2", zipcode:"15-662", town:"Białystok"},{name:"NZOZ Przychodnia Rodzinna Sp.p. Bartnicka, Boużyk-Masłowska, Dolińska - Lekarze",regon:"052212807", streetname:"Bema", streetnr:" 2/6", zipcode:"15-369", town:"Białystok"},{name:"NZOZ Puls s.c.",regon:"052214893", streetname:"Ciołkowskiego ", streetnr:"27", zipcode:"15-951", town:"Białystok"},{name:"NZOZ REMEDIUM s.c.",regon:"451157040", streetname:"Sybiraków ", streetnr:"20B lok.2A", zipcode:"18-400", town:"Łomża"},{name:"NZOZ Villa Med",regon:"361928449", streetname:"Miłosna", streetnr:" 24", zipcode:"15-666", town:"Białystok"},{name:"PRO MEDICA CENTRUM",regon:"052213758", streetname:"Al. Piłsudskiego", streetnr:" 4A", zipcode:"15-445", town:"Białystok"},{name:"Przychodnia Lekarza Rodzinnego - Dorota Móżdżyńska",regon:"200323783", streetname:"Stołeczna ", streetnr:"7 lok.101", zipcode:"15-879", town:"Białystok"},{name:"Przychodnia Na Sienkiewicza Spółka Partnerska Lekarzy Rodzinnych",regon:"052216828", streetname:"Sienkiewicza", streetnr:" 53B", zipcode:"15-002", town:"Białystok"},{name:"SP Psychiatryczny ZOZ im. Dr Stanisława Deresza w",regon:"050580458", streetname:"Plac Z. Brodowicza ", streetnr:"1", zipcode:"16-070", town:"Choroszcz"},{name:"SPZOZ MSW",regon:"050637922", streetname:"Fabryczna", streetnr:" 27", zipcode:"15-471", town:"Białystok"},{name:"SPZOZ w Hajnówce",regon:"05082500", streetname:"Doc. Adama Dowgirda", streetnr:" 9", zipcode:"17-200", town:"Hajnówka"},{name:"SPZOZ w Mońkach Gminny Ośrodek Zdrowia w Trzciannem",regon:"050652956", streetname:"Al. Wojska Polskiego ", streetnr:"12", zipcode:"19-101", town:"Mońki"},{name:"SPZOZ Wojewódzki Szpital Zespolony im. Jędrzeja Śniadeckiego",regon:"050657729", streetname:"M.Skłodowskiej-Curie ", streetnr:"26", zipcode:"15-950", town:"Białystok"},{name:"SPZOZ Wojskowej Specjalistycznej Przychodni Lekarskiej",regon:"050235520", streetname:"Lipowa", streetnr:" 47", zipcode:"15-424", town:"Białystok"},{name:"SPZOZ WSZ im. Jędrzeja Śniadeckiego",regon:"050657729", streetname:"M.Skłodowskiej-Curie", streetnr:" 26", zipcode:"15-950", town:"Białystok"},{name:"SUP-MED s.c. Centrum MEDYCYNY RODZINNEJ",regon:"052133344", streetname:"Dolna ", streetnr:"21", zipcode:"16-030", town:"Supraśl"},{name:"Szpital Wojewódzki w Łomży",regon:"450665024", streetname:"Piłsudskiego ", streetnr:"11", zipcode:"18-404", town:"Łomża"},{name:"URSAMED SP.J. Urszula Staniszewska",regon:"200654706", streetname:"Kopernika ", streetnr:"3A", zipcode:"15-377", town:"Białystok"},{name:"Zespół Gabinetów Lekarza Rodzinnego nr 1 w Łomży",regon:"450665627", streetname:"Polowa ", streetnr:"53", zipcode:"18-400", town:"Łomża"},{name:"Zespół Gabinetów Lekarza Rodzinnego nr 2 w Łomży",regon:"450665627", streetname:"Kolegialna", streetnr:" 1", zipcode:"18-400", town:"Łomża"},{name:"Zespół Gabinetów Lekarza Rodzinnego nr 4 w Łomży",regon:"450665627", streetname:"Al. Piłsudskiego", streetnr:" 11", zipcode:"18-400", town:"Łomża"},{name:"NZOZ DANMED Bogdan Danielski",regon:"450193967", streetname:"ul. Księżnej Anny ", streetnr:"29 lok.6", zipcode:"18-400", town:"Łomża"},{name:"Centrum Medyczne DOJLIDY",regon:"050669081", streetname:"Niedźwiedzia ", streetnr:"69", zipcode:"15-531", town:"Białystok"},{name:"NZOZ Przychodnia Rodzinna \"VITA\"",regon:"050066454", streetname:"Piastowska ", streetnr:"5", zipcode:"15-207", town:"Białystok"},{name:"Szpital Uniwersytecki",regon:"000288610", streetname:"Marii Skłodowskiej-Curie ", streetnr:"24 A", zipcode:"15-276", town:"Białystok"},{name:"Uniwersytecki Szpital Kliniczny",regon:"000288610", streetname:"M. Skłodowskiej-Curie ", streetnr:"24A", zipcode:"15-276", town:"Białystok"},{name:"FOK-ORŁOWSKA",regon:"052210926", streetname:"Mickiewicza ", streetnr:"14", zipcode:"15-222", town:"Białystok"},{name:"Podlaskie Centrum Medycyny Sportowej i Ortopedii",regon:"200003937", streetname:"Bema ", streetnr:"2", zipcode:"15-369", town:"Białystok"},{name:"NZOZ Medikon",regon:"200059292", streetname:"Edukacyjna ", streetnr:"1B", zipcode:"15-279", town:"Białystok"},{name:"NZOZ Przychodnia Lekarska MEDAR",regon:"450185583", streetname:"Łomżyńska ", streetnr:"40", zipcode:"18-416", town:"Zbójna"},{name:"Zespół Gabinetów Lekarza Rodzinnego nr 3 w Łomży",regon:"450665627", streetname:"Wyszyńskiego ", streetnr:"10", zipcode:"18-400", town:"Łomża"},{name:"Zakład Podstawowej Opieki Zdrowotnej w Łomży",regon:"450665627", streetname:"Szosa Zambrowska", streetnr:" 1/27", zipcode:"18-400", town:"Łomża"},{name:"SPZOZ w Mońkach Oddział Rehabilitacyjny",regon:"050652956", streetname:"Aleja Niepodległości", streetnr:" 9", zipcode:"19-100", town:"Mońki"},{name:"Akademicka Praktyka Medycyny Rodzinnej",regon:"050832003", streetname:"Waszyngtona", streetnr:" 15A", zipcode:"15-269", town:"Białystok"},{name:"NZOZ Przychodnia Lekarska \"Na Bema\" Barbara Lewandowska i Krystyna Żmijewska-Ziniewicz - Spółka Partnerska",regon:"052215125", streetname:"Bema ", streetnr:"2 lok.26", zipcode:"15-369", town:"Białystok"},{name:"\"Twój Lekarz Rodzinny\" Spółka Partnerska Lekarzy",regon:"200733162", streetname:"Zagumienna", streetnr:" 10A", zipcode:"15-866", town:"Białystok"},{name:"Poradnia Lekarzy Rodzinnych Ignatowicz, Toczyłowska Sp.p.",regon:"200655315", streetname:"Leszczynowa", streetnr:" 40 lok.23", zipcode:"15-811", town:"Białystok"},{name:"NZOZ \"ARTE-MEDICA\" Edyta Artemiuk",regon:"200815842", streetname:"Zambrowska ", streetnr:"36", zipcode:"16-001", town:"Kleosin"},{name:"Centrum Medyczne RYSKA",regon:"200875494", streetname:"Sobieskiego ", streetnr:"13 lok.8", zipcode:"15-013", town:"Białystok"},{name:"NZOZ Poradnia Lekarzy Rodzinnych Mariola Jadwiga Aleksandrowicz",regon:"050679688", streetname:"Pogodna", streetnr:" 11D/2", zipcode:"15-951", town:"Białystok"},{name:"Spółka Partnerska Lekarzy BILBIN",regon:"052213758", streetname:"Aleja Piłsudskiego", streetnr:" 4A", zipcode:"15-951", town:"Białystok"},{name:"Mazowiecki Szpital Bródnowski Sp.Z.o.o. Poradnia Chirurgii Urazowo-Ortopedycznej",regon:"141983460", streetname:"Kondratowicza", streetnr:" 8", zipcode:"03-242", town:"Warszawa"},{name:"\"Przychodnia Rodzinna\" s.c. Joanna Zabielska-Cieciuch, Barbara Piekarska, Grzegorz Chudoń",regon:"050650118", streetname:"Gajowa ", streetnr:"75", zipcode:"15-794", town:"Białystok"},{name:"Spółka Partnerska Lekarzy - PROKOP",regon:"052219301", streetname:"Radzymińska", streetnr:" 16 lok. 25", zipcode:"15-863", town:"Białystok"},{name:"NZOZ \"Lekarz Rodzinny\" Joanna M. Szeląg",regon:"050689876", streetname:"Dubois", streetnr:" 3", zipcode:"15-349", town:"Białystok"},{name:"Copernicus Podmiot Leczniczy Sp. z.o.o.",regon:"221964385", streetname:"al. Jana Pawła II", streetnr:" 50", zipcode:"80-642", town:"Gdańsk"},{name:"NZOZ POZ Iwona Okula",regon:"050348916", streetname:"Mickiewicza ", streetnr:"44A", zipcode:"15-232", town:"Białystok"},{name:"Janina i Sławomir Chmaro s.c.",regon:"051993553", streetname:"Sokólska ", streetnr:"41", zipcode:"16-123", town:"Kuźnica"},{name:"NZOZ \"MEDFiL\"",regon:"051994475", streetname:"Juchnowiec Dolny ", streetnr:"45/2", zipcode:"16-061", town:"Juchnowiec Kościelny"},{name:"NZOZ FAMEDYK Marzena Więckowska",regon:"450183354", streetname:"Sybiraków", streetnr:" 5/II", zipcode:"18-404", town:"Łomża"},{name:"NZOZ \"SILOE\" s.c.",regon:"052030236", streetname:"Raginisa ", streetnr:"87/2", zipcode:"15-161", town:"Białystok"},{name:"NZOZ Bacieczki s.c.",regon:"050851041", streetname:"Kołłątaja ", streetnr:"75", zipcode:"15-774", town:"Białystok"},{name:"\"Duo-Med\" Beata Czerwińska",regon:"050576741", streetname:"Złotoria ", streetnr:"132", zipcode:"16-070", town:"Choroszcz"},{name:"NZOZ \"MULTIMEDICA I\" Sp.p.",regon:"052009650-701", streetname:"Pod Krzywą ", streetnr:"28", zipcode:"15-258", town:"Białystok"},{name:"NZPOZ \"MEDICOMPLEX\"",regon:"050824765", streetname:"M.C.Skłodowskiej", streetnr:" 14/25", zipcode:"15-275", town:"Białystok"},{name:"Zakład Podstawowej Opieki Zdrowotnej w Łomży Gabinety Lekarza Rodzinnego Filia w Piątnicy",regon:"450665627", streetname:"Czarnocka ", streetnr:"14", zipcode:"18-421", town:"Piątnica"},{name:"NZOZ VITA MED Centrum Medyczne Bożena Halina Zawadzka",regon:"050301406", streetname:"Antoniukowska ", streetnr:"11 Lok.V", zipcode:"15-740", town:"Białystok"},{name:"Mazowiecki Szpital Specjalistyczny im. Dr Józefa Psarskiego",regon:"000304616", streetname:"Al. Jana Pawła II ", streetnr:"120A", zipcode:"07-410", town:"Ostrołęka"},{name:"NZOZ Poradnia Rehabilitacji Grażyna Jaroszewicz",regon:"050489686-00042", streetname:"Mickiewicza ", streetnr:"44A lok.4", zipcode:"15-223", town:"Białystok"},{name:"NZOZ \"Ośrodek Zdrowia\" w Gródku s.c.",regon:"050700773", streetname:"Fabryczna ", streetnr:"1", zipcode:"16-040", town:"Gródek"},{name:"NZOZ VITA MATULANIS Poradnia Neurologiczna",regon:"200451676", streetname:"Popiełuszki ", streetnr:"71", zipcode:"15-657", town:"Białystok"},{name:"NZOZ Przychodnia Neurologiczna",regon:"052136450", streetname:"Bema ", streetnr:"2", zipcode:"15-369", town:"Białystok"},{name:"Przychodnia Lekarza Rodzinnego Jadwiga Szerszenowicz",regon:"366336995", streetname:"Piastowska ", streetnr:"5", zipcode:"15-207", town:"Białystok"},{name:"SAWIMED Sp.z.o.o. Centrum Rehabilitacji Leczniczej",regon:"141520240", streetname:"Sawice-Wieś ", streetnr:"19", zipcode:"08-307", town:"Sawice-Wieś"},{name:"NZOZ Centrum Medyczne \"Warszawska\"",regon:"200382544", streetname:"Bukowskiego ", streetnr:"1 lok.2", zipcode:"15-066", town:"Białystok"},{name:"SPZOZ w Bielsku Podlaskim",regon:"050584924", streetname:"Kleszczelowska ", streetnr:"1", zipcode:"17-100", town:"Bielsk Podlaski"},{name:"Centrum Medyczne Rodzina",regon:"200128047", streetname:"Witosa ", streetnr:"15B gab.5", zipcode:"15-660", town:"Białystok"},{name:"Przychodnia DORMED",regon:"200659371", streetname:"Fabryczna ", streetnr:"4 lok. 1H", zipcode:"15-483", town:"Białystok"},{name:"Zespół Gabinetów Lekarza Rodzinnego nr 3 w Łomży Filia w Nowogrodzie",regon:"450665627", streetname:"Miastkowska ", streetnr:"5", zipcode:"18-414", town:"Nowogród"},{name:"NZOZ Vitamed im. E. Jakubów",regon:"052227080", streetname:"Mickiewicza", streetnr:" 44A lok.5", zipcode:"15-223", town:"Białystok"},{name:"Gabinet Neurologiczny Wojskowej Specjalistycznej Przychodni Lekarskiej",regon:"05023520", streetname:"Lipowa ", streetnr:"47", zipcode:"15-424", town:"Białystok"},{name:"Białostockie Centrum Onkologii",regon:"050657379", streetname:"Ogrodowa ", streetnr:"12", zipcode:"15-027", town:"Białystok"},{name:"NZOZ Poradnia Lekarza Rodzinnego Urszula Bonda",regon:"052210783", streetname:"Komisji Edukacji Narodowej", streetnr:" 7", zipcode:"15-687", town:"Białystok"},{name:"Przychodnia Lekarska WA-MED",regon:"050698177", streetname:"Kryńska ", streetnr:"32", zipcode:"16-010", town:"Wasilków"}]
-
+var Physiotherapist = require("./models/physiotherapist");
+var Address = require("./models/physiotherapistaddress")
+var data =[
+    {
+        firstname: "Agnieszka",
+        lastname: "Morozowska",
+        pesel: "880230150001",
+        address:{
+            streetname: "Zamkowa",
+            nrblock: "2",
+            nrflat: "3",
+            zipcode: "16-062",
+            town: "Sokółka"
+        }
+    },
+     {
+        firstname: "Michał",
+        lastname: "Radomski",
+        pesel: "870115200123",
+        address:{
+            streetname: "Depowa",
+            nrblock: "10",
+            nrflat: "111",
+            zipcode: "15-022",
+            town: "Białystok"
+        }
+    },
+     {
+        firstname: "Katarzyna",
+        lastname: "Grudziądzka",
+        pesel: "880230150001",
+        nrpwz: "40012834",
+        address:{
+            streetname: "Konwaliowa",
+            nrblock: "112",
+            nrflat: "323",
+            zipcode: "15-012",
+            town: "Białystok"
+        }
+    }
+    ]
 
 function seedDB()
 {
-    Clinic.remove({}, function(err)
+    Physiotherapist.remove({}, function(err)
     {
         if(err)
         {
@@ -16,17 +53,39 @@ function seedDB()
             console.log("Removed all the users!");
                 data.forEach(function(seed)
                 {
-                Clinic.create(seed, function(err, clinic)
-                {
-                    if(err)
-                    {
-                        console.log(err);
-                    }else
-                    {
-                                clinic.save();
+                      var newAddress = {
+                            streetname: seed.address.streetname,
+                            nrblock: seed.address.nrblock,
+                            nrflat: seed.address.nrflat,
+                            zipcode: seed.address.zipcode,
+                            town: seed.address.town
+                        }
+                        Address.create(newAddress, function(err, address){
+                             if(err){
+                                 console.log(err);
+                             }else{
+                                 address.save();
+                                 var newPhysio = {
+                                firstname: seed.firstname,
+                                lastname: seed.lastname,
+                                pesel: seed.pesel,
+                                    }
+                            Physiotherapist.create(newPhysio, function(err, physiotherapist)
+                            {
+                                if(err)
+                                {
+                                    console.log(err);
+                                }else
+                                {
+                                   physiotherapist.address.push(address._id);
+                                physiotherapist.save();
+                                  
+                                        }
+                                    });
+                             }
                                 
-                            }
-                        });
+                        })
+                     
                     }
                 );
         }

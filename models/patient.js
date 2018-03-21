@@ -1,6 +1,8 @@
 //PACJENT
 
 var mongoose = require("mongoose"),
+    // deepPopulate = require("mongoose-deep-populate")(mongoose),
+    autopopulate = require("mongoose-autopopulate"),
     patientSchema = new mongoose.Schema({
         firstname: String,
         lastname: String,
@@ -12,23 +14,28 @@ var mongoose = require("mongoose"),
         addresses: [
                 {
                 type: mongoose.Schema.Types.ObjectId,
-                ref: "PatientAddress"  
+                ref: "PatientAddress",
+                autopopulate: true
                 }
             ],
             
         refferals:[
             {
                 type: mongoose.Schema.Types.ObjectId,
-                ref: "Refferal"
+                ref: "Refferal",
+                autopopulate: true
             }
             ],
             
         user:{
-            id:{
+            
                 type: mongoose.Schema.Types.ObjectId,
-                ref: "User"
-            }
+                ref: "User",
+                autopopulate: true
+            
         }
         
     });
+    // patientSchema.plugin(deepPopulate);
+    patientSchema.plugin(autopopulate);
 module.exports = mongoose.model("Patient", patientSchema);
