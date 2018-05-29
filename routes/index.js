@@ -9,7 +9,6 @@ Patient = require("../models/patient"),
  
 //START
 router.get("/", function(req, res) {
-    
     res.render("landing");
 
 });
@@ -52,7 +51,7 @@ router.post("/login", passport.authenticate("local", {
 //LOGOUT
 router.get("/logout", function(req, res) {
     req.logout();
-    req.flash("success", "Logged you out!");
+    req.flash("success", "Pomyślnie wylogowano z systemu!");
     res.redirect("/");
 });
 

@@ -1,11 +1,10 @@
 var  mongoose = require("mongoose"),
-     Patient = require("../models/patient"),
-     Address = require("../models/patientaddress");
+    db = ("../models");
      
 
 exports.getAddressForm = function(req, res){
     var id = mongoose.Types.ObjectId(req.params.id);
-     Patient.findById(id)
+     db.Patient.findById(id)
         .then(function(foundPatient){
              res.render("addresses/new", {patient: foundPatient});
              
@@ -15,9 +14,9 @@ exports.getAddressForm = function(req, res){
         });
     };
 exports.createNewAddress =  function(req, res){
-    Patient.findById(req.params.id)
+    db.Patient.findById(req.params.id)
         .then(function(foundPatient){
-            Address.create(req.body.address)
+            db.Address.create(req.body.address)
             .then(function(address){
                 address.save();
                 foundPatient.addresses.push(address._id);
@@ -30,7 +29,7 @@ exports.createNewAddress =  function(req, res){
         };
 
 exports.editAddress = function(req,res){
-    Address.findById(req.params.address_id) 
+    db.Address.findById(req.params.address_id) 
     .then(function(foundAddress){
             res.render("addresses/edit", {patient_id: req.params.id, address: foundAddress});
         
@@ -39,7 +38,7 @@ exports.editAddress = function(req,res){
 };
 
 exports.updateAddress = function(req, res){
-    Address.findByIdAndUpdate(req.params.address_id, req.body.address)
+    db.Address.findByIdAndUpdate(req.params.address_id, req.body.address)
     .then(function(updatedAddress){
          req.flash("success", "Pomyślnie zmieniono adres");
         res.redirect("/patients/"+req.params.id+"/edit");
@@ -48,9 +47,9 @@ exports.updateAddress = function(req, res){
 }
 exports.deleteAddress =  function(req, res) {
     var ObjectID = new mongoose.Types.ObjectId;
-    Patient.findById(req.params.id)
+   db.Patient.findById(req.params.id)
     .then(function(patient){
-      Address.findByIdAndRemove(req.params.addressId)
+     db.Address.findByIdAndRemove(req.params.addressId)
       .then(function(address){
           patient.update({_id: mongoose.Types.ObjectId(req.params.id)}, 
             { $pull: {"refferal._id": mongoose.Types.ObjectId(req.params.addressId) }})

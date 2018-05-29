@@ -15,9 +15,7 @@ var express     = require("express"),
     expressBack = require("express-back"),
     flash       = require("connect-flash");
     // seedDB();
-     mongoose.set('debug', true);
- app.on('warning', e => console.warn(e.stack));
-    mongoose.Promise = Promise;
+   
 //routes in here VVVV    
 
 var indexRoutes = require("./routes/index"),
@@ -26,7 +24,7 @@ var indexRoutes = require("./routes/index"),
     appointmentRoutes = require("./routes/appointments"),
     refferalRoutes = require("./routes/refferals");
     
-mongoose.connect("mongodb://localhost/physio_base");
+
 
 app.use(bodyParser.urlencoded({extended: true})); //
 app.set("view engine", "ejs"); //parse ejs files extentions
