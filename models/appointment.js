@@ -5,7 +5,7 @@ var mongoose = require("mongoose"),
     appointmentSchema = new mongoose.Schema({
         physiotherapists:[{
             type: mongoose.Schema.Types.ObjectId,
-            ref: "User",
+            ref: "Physiotherapist",
             autopopulate: true
             }
         ],
@@ -13,7 +13,7 @@ var mongoose = require("mongoose"),
         supervisor: {
             
             type: mongoose.Schema.Types.ObjectId,
-            ref: "User",
+            ref: "Supervisor",
             autopopulate: true 
         },
         month: String,

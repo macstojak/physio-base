@@ -1,15 +1,15 @@
 var mongoose = require("mongoose"),
     autopopulate = require("mongoose-autopopulate"),
-    physiotherapistSchema = new mongoose.Schema({
+    supervisorSchema = new mongoose.Schema({
         firstname: String,
         lastname: String,
         pesel: String,
         nrpwz: String,
         address: {
                 type: mongoose.Schema.Types.ObjectId,
-                ref: "PhysiotherapistAddress",
+                ref: "SupervisorAddress",
                 autopopulate: true
         }
     });
-    physiotherapistSchema.plugin(autopopulate);
-module.exports = mongoose.model("Physiotherapist", physiotherapistSchema);
+    supervisorSchema.plugin(autopopulate);
+module.exports = mongoose.model("Supervisor", supervisorSchema);

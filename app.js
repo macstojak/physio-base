@@ -14,8 +14,10 @@ var express     = require("express"),
     seedDB      = require("./seeds"),
     expressBack = require("express-back"),
     flash       = require("connect-flash");
-    seedDB();
-    
+    // seedDB();
+     mongoose.set('debug', true);
+ app.on('warning', e => console.warn(e.stack));
+    mongoose.Promise = Promise;
 //routes in here VVVV    
 
 var indexRoutes = require("./routes/index"),

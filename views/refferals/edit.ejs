@@ -51,12 +51,13 @@
                        <p>Brak skierowań na zabiegi...</p>
                        <a class="btn btn-xs btn-success" href="/refferals/<%= refferal._id%>/appointments/new">Nowe skierowanie na zabiegi</a>
                    <% }else{%>
-                    <a class="btn btn-xs btn-success" href="/patients/<%= patient._id%>/appointments/new">Nowe skierowanie na zabiegi</a>
+                     <a class="btn btn-xs btn-success" href="/refferals/<%= refferal._id%>/appointments/new">Nowe skierowanie na zabiegi</a>
                     <% refferal.appointments.forEach(function(appointment){ %>
-                    
+  
                     <ul>
                         <li style="display:inline;">
-                            <%=appointment.appointmentdate%> - 
+                            <hr>
+                            Data wizyty - <%=appointment.appointmentdate%>  
                             <br>
                             
                             <br>
@@ -65,14 +66,14 @@
                             <br>
                             Nr. kolejki: <%= appointment.queue %>
                             <br>
-                            Stan pacjenta:<%=appointment.states%> 
+                            Stan pacjenta: <%=appointment.state%> 
                             <br>
                             
                             Osoba nadzorująca:
                             <% if(appointment.supervisor === undefined || appointment.supervisor === null ){%>
-                            Brak osoby nadzorującej
+                            Brak osoby nadzorującej...
                             <% }else{ %>
-                            <%= appointment.supervisor.lastname%> - 
+                            <%= appointment.supervisor.lastname%>  
                             <%= appointment.supervisor.firstname %>
                             <% } %>
                             <br>
@@ -88,9 +89,9 @@
                             <% })%> 
                             
                          <a class="btn btn-xs btn-warning" 
-                           href="/patients/<%=patient._id %>/appointments/<%=appointment._id %>/edit">Edytuj skierowanie</a>
+                           href="/appointments/<%=appointment._id %>">Edytuj skierowanie</a>
                                
-                        <form style="display:inline;" action="/patients/<%=patient._id %>/appointments/<%=appointment._id%>?_method=DELETE" method="POST">
+                        <form style="display:inline;" action="/refferals/<%= refferal._id%>/appointments/<%=appointment._id%>?_method=DELETE" method="POST">
                             <button class="btn btn-xs btn-danger">Usuń skierowanie na zabiegi</button>
                         </form>
                         </li>

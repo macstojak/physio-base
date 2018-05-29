@@ -8,6 +8,7 @@ var express = require("express"),
     Clinic = require("../models/clinic"),
     Disease = require("../models/disease");
 
+
 //LIST OF ALL REFFERALS - /PATIENTS/SHOW
 
 
@@ -79,11 +80,19 @@ router.post("/", function(req, res){
             var refdate = req.body.refferal.refdate,
                 diseaseTable = req.body.refferal.diseases,
                 diseases = [];
-               for(var i = 0; i<diseaseTable.length; i++){
-                   var id = mongoose.Types.ObjectId(diseaseTable[i]);
-                   diseases.push(id);
-                   console.log(id);
-               }
+                if(!(diseaseTable===undefined)){
+                    if(Array.isArray(diseaseTable) && diseaseTable.length >1){
+                           for(var i = 0; i<diseaseTable.length; i++){
+                               var id = mongoose.Types.ObjectId(diseaseTable[i]);
+                               diseases.push(id);
+                               console.log(id);
+                           }
+                    }else{
+                     diseases =  mongoose.Types.ObjectId(diseaseTable) 
+                    }
+                }else{
+                     diseases = [];
+                }
            console.log(diseases);
             var newRefferal = {
                 refdate: refdate,
@@ -102,7 +111,7 @@ router.post("/", function(req, res){
                 patient.refferals.push(refferal._id);
                 
                 patient.save();
-                req.flash("success", "Zarejestrowano skierowanie!")
+                req.flash("success", "Zarejestrowano skierowanie!");
                 res.redirect("show");
             }
         }); 
@@ -167,4 +176,7 @@ router.delete("/:refferalId", function(req, res) {
       })
     })
 });
+
+
+
 module.exports = router;

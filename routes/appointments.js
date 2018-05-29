@@ -1,28 +1,23 @@
 var express = require("express"),
+    mongoose = require("mongoose"),
     router = express.Router({mergeParams: true}),
     Refferal = require("../models/refferal"),
     Physiotherapist = require("../models/physiotherapist"),
-    Disease = require("../models/disease")
-    
-    
+    Disease = require("../models/disease"),
+    Supervisor = require("../models/supervisor"), 
+    Visit = require("../models/visit"),
+    Appointment = require("../models/appointment"),
+    Patient = require("../models/patient"),
+    helpers = require("../helpers/appointments");
+  
+
 //NEW APPOINTMENT
-router.get("/new", function(req, res){
-    Refferal.findById(req.params.id, function(err, foundRefferal){
-        if(err){
-            console.log(err);
-        }else{
-            Physiotherapist.find({}, function(err, physiotherapists){
-                Disease.find({}, function(err, diseases){
-                    console.log(physiotherapists)
-                    
-                        res.render("appointments/new", {refferal: foundRefferal, physiotherapists: physiotherapists, diseases: diseases, supervisors: physiotherapists});
-                    
-                })
-            })
-            
-        }
-    });
-});
+router.route("/")
+.get(helpers.createAppointment)
+.post(helpers.addAppointment);
 
-
+router.route("/:appointmentid")
+.get(helpers.editAppointment)
+.post(helpers.updateAppointment)
+.delete(helpers.deleteAppointment);
 module.exports = router;    

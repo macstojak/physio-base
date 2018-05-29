@@ -1,7 +1,7 @@
 <% include ../partials/header %>
-<h3>Skierowanie :</h3>
+<h4>Skierowanie :</h4>
 
-
+<div class="container">
 
  
         <%= refferal.refdate %><br>
@@ -18,11 +18,33 @@
                                
                                   
                                     <% }) %>
-                                  
-       <a class="btn btn-xs btn-danger" href="">Edytuj skierowanie</a>
-        <form action="/refferals/<%= refferal._id%>/?_method=DELETE" method="POST"></form>
-        <button class="btn btn-xs btn-warning">Usuń</button>
-      
+<br>
+       <a class="btn btn-xs btn-warning" href="/refferals/<%=refferal._id%>/edit">Edytuj skierowanie</a>
+        <form action="/refferals/<%= refferal._id%>/?_method=DELETE" method="POST">
+             <input type="submit" class="btn btn-xs btn-danger" value="Usuń skierowanie">
+        </form>
+    <div class="container">    
+        <a class="btn btn-xs btn-success" href="/refferals/<%= refferal._id %>/appointments/new">Nowa wizyta lekarza rehabilitacji</a>
+            <% refferal.appointments.forEach(function(appointment){%>
+                <h4>Data wizyty: </h4><%= appointment.appointmentdate%>
+                <br>
+                <h4>Stan pacjenta: </h4><%= appointment.state%>
+                <br>
+                <h4>Nadzorca: </h4><%= appointment.supervisor.lastname %> <%= appointment.supervisor.firstname %> - <%= appointment.supervisor.nrpwz %>
+                <br>
+                <h4>Fizjoterapeuta: </h4><%= appointment.physiotherapist %>
+                <br>
+                <h4>Termin realizacji: </h4><%= appointment.month %> <%= appointment.year%>
+                <br>
+                <h4>Kolejka: </h4><%= appointment.queue%>
+                <br>
+                <h4>Choroby pacjenta: </h4>
+                <% appointment.diseases.forEach(function(disease){ %>
+                    <li><%= disease.code%> - <%= disease.name%></li>
+                <% }) %>
+            <% }) %>
+    </div>
+</div>
         
    
 

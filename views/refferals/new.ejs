@@ -9,7 +9,7 @@
                 </div>
                 <div class="col-md-6 col-sm-12">
                 <label>Lekarz kierujący:</label>
-                <select name="refferal[doctor]" data-live-search="true" class="selectpicker" id="selectDoctor">
+                <select name="refferal[doctor]" data-live-search="true" class="selectpicker" id="selectDoctor" title="Wybierz lekarza kierującego">
 
                     <% doctors.forEach(function(doctor){ %>
                     <option value="<%=doctor._id%>"><%= doctor.nrpwz%> - <%=doctor.firstname %> <%= doctor.lastname %></option>
@@ -18,7 +18,7 @@
                 </div>
                  <div class="col-md-6 col-sm-12">
                 <label>Jednostka kierująca:</label>
-                <select name="refferal[clinic]" data-live-search="true" class="selectpicker" id="selectClinic">
+                <select name="refferal[clinic]" data-live-search="true" class="selectpicker" id="selectClinic" title="Wybierz jednostkę kierującą">
                     <% clinics.forEach(function(clinic){ %>
                     <option value="<%=clinic._id%>"><%= clinic.regon%> - <%=clinic.name %></option>
                     <% }) %>
@@ -26,7 +26,7 @@
                 </div>
                 <div class="col-md-12 col-sm-12">
                     <label>Choroby:</label>
-                    <select name="refferal[diseases]" id="selectDisease" data-live-search="true" class="selectpicker" multiple >
+                    <select name="refferal[diseases]" id="selectDisease" data-live-search="true" class="selectpicker" multiple title="Wybierz choroby">
                      <% diseases.forEach(function(disease){ %>
                     
                     <option value="<%= disease._id%>"><%= disease.code%> - <%=disease.name %></option>
