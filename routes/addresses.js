@@ -3,10 +3,10 @@ var express = require("express"),
     router = express.Router({mergeParams: true}),
     helpers = require("../helpers/addresses");
     
-//ROUTE - NEW
-// router.route("/")
-// .get(helpers.getAddressForm)
-// .post(helpers.createNewAddress);
+
+router.route("/")
+.get(helpers.getAddressForm)
+.post(helpers.createNewAddress);
 
 router.route("/:address_id")
 .get(helpers.editAddress)
