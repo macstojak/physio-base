@@ -39,13 +39,14 @@ router.get("/login", function(req, res){
 });
 //LOGIN VALIDATION AND PROCESS
 //handle login logic
-router.post("/login", passport.authenticate("local", {
+router.post("/login", 
+    passport.authenticate("local", {
     successRedirect: "/",
     failureRedirect: "/login", 
     failureFlash: "Wprowadzono niepoprawny login lub hasło",
     successFlash: "Witamy w PhysioBase"
-    }), function(req, res) {
-
+    }), 
+    function(req, res) {
 });
 
 //LOGOUT

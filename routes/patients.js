@@ -4,7 +4,7 @@ var express = require("express"),
     middleware = require("../middleware"),
     helpers = require("../helpers/patients");
 
-router.route('/', isLoggedIn)
+router.route('/', middleware.isLoggedIn)
 .get(helpers.listPatients)
 .post(helpers.addNewPatient)
 //INDEX - ALL PATIENTS
@@ -16,7 +16,8 @@ router.route("/:id")
 .get(helpers.showPatient)
 .put(helpers.updatePatient)
 .delete(helpers.deletePatient)
-.get("/edit", helpers.editPatient)
+
+router.get("edit", helpers.editPatient)
 
 router.get("/new", middleware.isLoggedIn, function(req, res){
     res.render("patients/new");

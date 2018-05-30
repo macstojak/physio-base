@@ -6,14 +6,11 @@ exports.listPatients =  function(req, res){
 }     
 
 exports.listAllPatients =  function(req, res){
-    Patient.find({}, function(err, allPatients){
-        if(err){
-            console.log(err);
-        }
-        else{
+    db.Patient.find({})
+    .then(function(allPatients){
             res.render("patients/index", {patient: allPatients});
-        }
     })
+    .catch(errorHandlers)
 }
 
 exports.addNewPatient = function(req, res){
@@ -37,15 +34,12 @@ exports.addNewPatient = function(req, res){
                         user:user,
                     
                      };
-        Patient.create(newPatient, function(err, patient){
-            if(err){
-                console.log("Something went wrong during registry of new patient");
-            }else{
-                console.log(patient);
+        db.Patient.create(newPatient)
+        .then(function(patient){
                 req.flash("success", "Zarejestrowano pacjenta!")
                 res.redirect("patients/index");
-            }
-        });
+        })
+        .catch(errorHandlers);
 }
 
 exports.showPatient = function(req, res){
@@ -96,42 +90,32 @@ exports.showPatient = function(req, res){
 // });
 
 //TRZECIE ROZWIAZANIE - AUTOPOPULATE PLUGIN
-Patient.findById(req.params.id, function(err, foundPatient){
-         if(err){
-            console.log(err);
-        }else{
+db.Patient.findById(req.params.id)
+    .then(function(foundPatient){
             res.render("patients/show", {patient: foundPatient, addresses: foundPatient.addresses, refferals:foundPatient.refferals});
-        }   
     })
+    .catch(errorHandlers);
 }
 
 exports.updatePatient = function(req, res){
-    Patient.findByIdAndUpdate(req.params.id, req.body.patient, function(err, updatedPatient){
-        if(err){
-            console.log("Failed to update patient"+updatedPatient);
-            res.redirect("back");
-        }
-        else{
+   db.Patient.findByIdAndUpdate(req.params.id, req.body.patient)
+   .then(function(updatedPatient){
             res.redirect("/patients/index");
-        }
-    });
+    })
+    .catch(errorHandlers);
 }
 
 exports.deletePatient =  function(req, res){
-    Patient.findByIdAndRemove(req.params.patient_id, function(err){
-        if(err){
-            req.flash("error", "Nie można usunąć pacjenta");
-            res.redirect("back");
-        }
-        else{
+    db.Patient.findByIdAndRemove(req.params.patient_id)
+    .then(function(){
             req.flash("success", "Pomyślnie usunięto pacjenta z rejestru")
             res.redirect("/");
-        }
     })
+    .catch(errorHandlers);
 }
 
 exports.editPatient =  function(req, res){
-    Patient.findById(req.params.id).populate("addresses").exec(function(err, foundPatient){
+    db.Patient.findById(req.params.id).populate("addresses").exec(function(err, foundPatient){
         if(err){
             console.log(err);
             res.redirect("patients/index");
