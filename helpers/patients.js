@@ -1,5 +1,5 @@
 var  mongoose = require("mongoose"),
-    db = ("../models");
+    db = require("../models");
 
 exports.listPatients =  function(req, res){
     res.render("patients/show");

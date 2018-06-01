@@ -1,10 +1,10 @@
 var  mongoose = require("mongoose"),
-    db = ("../models");
+    db = require("../models");
      
 
 exports.getAddressForm = function(req, res){
-    var id = mongoose.Types.ObjectId(req.params.id);
-     db.Patient.findById(id)
+   
+     db.Patient.findById(req.params.id)
         .then(function(foundPatient){
              res.render("addresses/new", {patient: foundPatient});
              
@@ -16,7 +16,7 @@ exports.getAddressForm = function(req, res){
 exports.createNewAddress =  function(req, res){
     db.Patient.findById(req.params.id)
         .then(function(foundPatient){
-            db.Address.create(req.body.address)
+            db.PatientAddress.create(req.body.address)
             .then(function(address){
                 address.save();
                 foundPatient.addresses.push(address._id);
@@ -29,7 +29,7 @@ exports.createNewAddress =  function(req, res){
         };
 
 exports.editAddress = function(req,res){
-    db.Address.findById(req.params.address_id) 
+    db.PatientAddress.findById(req.params.address_id) 
     .then(function(foundAddress){
             res.render("addresses/edit", {patient_id: req.params.id, address: foundAddress});
         
@@ -38,7 +38,7 @@ exports.editAddress = function(req,res){
 };
 
 exports.updateAddress = function(req, res){
-    db.Address.findByIdAndUpdate(req.params.address_id, req.body.address)
+    db.PatientAddress.findOneAndUpdate({_id: req.params.address_id}, req.body.address, {new: true})
     .then(function(updatedAddress){
          req.flash("success", "Pomyślnie zmieniono adres");
         res.redirect("/patients/"+req.params.id+"/edit");
@@ -46,15 +46,23 @@ exports.updateAddress = function(req, res){
     .catch(errorHandlers);
 }
 exports.deleteAddress =  function(req, res) {
-    var ObjectID = new mongoose.Types.ObjectId;
+  
    db.Patient.findById(req.params.id)
     .then(function(patient){
-     db.Address.findByIdAndRemove(req.params.addressId)
-      .then(function(address){
-          patient.update({_id: mongoose.Types.ObjectId(req.params.id)}, 
-            { $pull: {"refferal._id": mongoose.Types.ObjectId(req.params.addressId) }})
-            res.redirect("/patients/"+req.params.id+"/show");
-      })
+       
+        patient.update(
+        {_id: mongoose.Types.ObjectId(req.params.id)}, 
+        { $pull: 
+        { addresses: {_id: mongoose.Types.ObjectId(req.params.address_id)}}
+            
+        });
+        
+    })
+    .then(function(){
+         db.PatientAddress.remove({"_id": mongoose.Types.ObjectId(req.params.address_id)});
+    })
+    .then(function(){
+         res.redirect("/patients/"+req.params.id);
     })
     .catch(errorHandlers);
 };

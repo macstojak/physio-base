@@ -1,5 +1,5 @@
 var mongoose = require("mongoose"),
-    db = ("../models");
+    db = require("../models");
     
 exports.newRefferal = function(req, res){
           db.Patient.findById(req.params.id)

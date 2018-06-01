@@ -38,4 +38,5 @@ var mongoose = require("mongoose"),
     });
     // patientSchema.plugin(deepPopulate);
     patientSchema.plugin(autopopulate);
-module.exports = mongoose.model("Patient", patientSchema);
+    var Patient =  mongoose.model("Patient", patientSchema);
+module.exports = Patient;

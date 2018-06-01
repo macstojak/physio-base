@@ -1,33 +1,28 @@
-var Refferal = require("../models/refferal"),
-    Physiotherapist = require("../models/physiotherapist"),
-    Disease = require("../models/disease"),
-    Supervisor = require("../models/supervisor"), 
-    Visit = require("../models/visit"),
-    Appointment = require("../models/appointment"),
-    Patient = require("../models/patient"),
-    mongoose = require("mongoose");
+var mongoose = require("mongoose"),
+    db = require("../models");
 
 exports.createAppointment = function(req, res){
-    Refferal.findById(req.params.id)
+    db.Refferal.findById(req.params.id)
     .then(function(foundRefferal){
-            Physiotherapist.find({})
+            db.Physiotherapist.find({})
             .then(function(physiotherapists){
-                Disease.find({})
+                db.Disease.find({})
                 .then(function(diseases){
-                    Supervisor.find({})
+                    db.Supervisor.find({})
                     .then(function(supervisors){
                         console.log("Physiotherapists: "+ physiotherapists)
                         res.render("appointments/new", {refferal: foundRefferal, physiotherapists: physiotherapists, diseases: diseases, supervisors: supervisors});
-                    })
+                   
                 })
             })
             
         })
-    .catch(errorHandlers);
-};
+})
+ .catch(errorHandlers)
+}
 
 exports.addAppointment = function(req, res){
-    Refferal.findById(req.params.id)
+    db.Refferal.findById(req.params.id)
     .then(function(foundRefferal){
         var diseasesTable = req.body.appointment.diseases,
             physiotherapistsTable = req.body.appointment.physiotherapists,
@@ -72,7 +67,7 @@ exports.addAppointment = function(req, res){
         physiotherapists: physiotherapists
         }
           
-        Appointment.create(newAppointment)
+        db.Appointment.create(newAppointment)
         .then(function(appointment){
             appointment.save();
             foundRefferal.appointments.push(appointment._id);
@@ -84,13 +79,13 @@ exports.addAppointment = function(req, res){
         .catch(errorHandlers)
     }
 exports.editAppointment = function(req, res){
-    Appointment.findById(req.params.appointmentid)
+    db.Appointment.findById(req.params.appointmentid)
     .then(function(foundAppointment){
-                Physiotherapist.find({})
+                db.Physiotherapist.find({})
                 .then(function(physiotherapists){
-                    Disease.find({})
+                    db.Disease.find({})
                     .then(function(diseases){
-                        Supervisor.find({})
+                        db.Supervisor.find({})
                         .then(function(supervisors){
                             res.render("appointments/edit", {appointment: foundAppointment, months: foundAppointment.month, diseases: diseases, physiotherapists: physiotherapists, supervisors: supervisors})    
                             })
@@ -100,19 +95,18 @@ exports.editAppointment = function(req, res){
             })
     }
 exports.updateAppointment = function(req, res){
-       Appointment.findByIdAndUpdate(req.params.appointmentid, req.body.appointment)
+       db.Appointment.findByIdAndUpdate(req.params.appointmentid, req.body.appointment)
        .then(function(updatedAppointment){
             req.flash("success", "Zmieniono dane na skierowaniu")
             res.redirect(req.session.prevPrevPath);
         })
         .catch(errorHandlers);
-    
 }
 
 exports.deleteAppointment = function(req, res){
-    Refferal.findById(req.params.id) 
+    db.Refferal.findById(req.params.id) 
     .then(function(refferal){
-      Appointment.findByIdAndRemove(req.params.appointmentid)
+      db.Appointment.findByIdAndRemove(req.params.appointmentid)
       .then(function(appointment){
           refferal.update({_id: mongoose.Types.ObjectId(req.params.id)}, 
             { $pull: {"appointment._id": mongoose.Types.ObjectId(req.params.appointmentid) }

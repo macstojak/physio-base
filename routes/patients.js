@@ -17,7 +17,7 @@ router.route("/:id")
 .put(helpers.updatePatient)
 .delete(helpers.deletePatient)
 
-router.get("edit", helpers.editPatient)
+router.get("/:id/edit", helpers.editPatient)
 
 router.get("/new", middleware.isLoggedIn, function(req, res){
     res.render("patients/new");

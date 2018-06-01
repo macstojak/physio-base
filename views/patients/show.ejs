@@ -6,15 +6,15 @@
 <h3>Adresy pacjenta:</h3>
        <% if(patient.addresses ===null || patient.addresses === undefined || patient.addresses.length ===0){%>
                        <p>Brak zarejestrowanych adresów...</p>
-                       <a class="btn btn-xs btn-success" href="/patients/<%= patient._id%>/addresses/new">Dodaj nowy adres</a>
+                       <a class="btn btn-xs btn-success" href="/patients/<%= patient._id%>/addresses/">Dodaj nowy adres</a>
                    <% }else{%>
-                   <a class="btn btn-xs btn-success" href="/patients/<%= patient._id%>/addresses/new">Dodaj nowy adres</a>
+                   <a class="btn btn-xs btn-success" href="/patients/<%= patient._id%>/addresses/">Dodaj nowy adres</a>
                     <% patient.addresses.forEach(function(address){ %>
                     <ul>
                         <li style="display:inline;"><%=address.streetname%> <%=address.nrblock%>/<%=address.nrflat%>, <%=address.zipcode%> <%=address.town%>
 
                          <a class="btn btn-xs btn-warning" 
-                           href="/patients/<%=patient._id %>/addresses/<%=address._id %>/edit">Edytuj adres</a>
+                           href="/patients/<%=patient._id %>/addresses/<%=address._id %>/">Edytuj adres</a>
                               
                         <form style="display:inline;" action="/patients/<%=patient._id %>/addresses/<%=address._id%>?_method=DELETE" method="POST">
                             <button class="btn btn-xs btn-danger">Usuń adres</button>
@@ -28,9 +28,9 @@
 <h3>Skierowania pacjenta:</h3>
        <% if(patient.refferals ===null || patient.refferals === undefined || patient.refferals.length ===0){%>
                        <p>Brak skierowań...</p>
-                       <a class="btn btn-xs btn-success" href="/patients/<%= patient._id%>/refferals/new">Dodaj nowe skierowanie</a>
+                       <a class="btn btn-xs btn-success" href="/patients/<%= patient._id%>/refferals/">Dodaj nowe skierowanie</a>
                    <% }else{%>
-                    <a class="btn btn-xs btn-success" href="/patients/<%= patient._id%>/refferals/new">Dodaj nowe skierowanie</a>
+                    <a class="btn btn-xs btn-success" href="/patients/<%= patient._id%>/refferals/">Dodaj nowe skierowanie</a>
                     <% patient.refferals.forEach(function(refferal){ %>
                     
                     <ul>
@@ -63,7 +63,7 @@
                             <% })%>    
                             </ul>
                          <a class="btn btn-xs btn-warning" 
-                           href="/patients/<%=patient._id %>/refferals/<%=refferal._id %>/edit">Edytuj skierowanie</a>
+                           href="/patients/<%=patient._id %>/refferals/<%=refferal._id %>/">Edytuj skierowanie</a>
                                
                         <form style="display:inline;" action="/patients/<%=patient._id %>/refferals/<%=refferal._id%>?_method=DELETE" method="POST">
                             <button class="btn btn-xs btn-danger">Usuń skierowanie</button>
