@@ -53,7 +53,7 @@ exports.deleteAddress =  function(req, res) {
         patient.update(
         {_id: mongoose.Types.ObjectId(req.params.id)}, 
         { $pull: 
-        { addresses: {_id: mongoose.Types.ObjectId(req.params.address_id)}}
+        { "addresses._id": {mongoose.Types.ObjectId(req.params.address_id)}}
             
         });
         
