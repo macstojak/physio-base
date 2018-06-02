@@ -1,8 +1,7 @@
 var mongoose = require("mongoose");
 var Physiotherapist = require("./models/physiotherapist");
-var Address = require("./models/physiotherapistaddress");
+var Address = require("./models/address");
 var Supervisor = require("./models/supervisor");
-var SupervisorAddress = require("./models/supervisoraddress");
 var data =[
     {
         firstname: "Agnieszka",

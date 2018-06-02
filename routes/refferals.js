@@ -15,7 +15,7 @@ router.route("/")
 //SHOW REFFERAL
 router.route("/:refferalId")
 .get(helpers.showRefferal)
-.put(helpers.editRefferal)
+.put(helpers.updateRefferal)
 .delete(helpers.deleteRefferal)
 
 //SHOW ALL PATIENTS - ALL REFFERALS

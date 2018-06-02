@@ -11,13 +11,13 @@ var mongoose = require("mongoose"),
         securitydate: String,
         securityinstance: ["ZUS", "KRUS", "MSWiA"],
         phone: String,
-        addresses: [
-                {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "PatientAddress",
-                autopopulate: true
-                }
-            ],
+        addresses:[
+                    {
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: "Address",
+                    autopopulate: true
+                    }
+                ],
             
         refferals:[
             {

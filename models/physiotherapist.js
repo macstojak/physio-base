@@ -7,7 +7,7 @@ var mongoose = require("mongoose"),
         nrpwz: String,
         address: {
                 type: mongoose.Schema.Types.ObjectId,
-                ref: "PhysiotherapistAddress",
+                ref: "Address",
                 autopopulate: true
         }
     });
