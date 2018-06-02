@@ -1,6 +1,6 @@
 var mongoose = require("mongoose"),
     db = require("../models"),
-    ObjectID = mongoose.Types.ObjectId();
+    ObjectID = mongoose.Types.ObjectId;
     
 exports.newRefferal = function(req, res){
           db.Patient.findById(req.params.id)
@@ -58,13 +58,7 @@ exports.addRefferal =  function(req, res){
           })
           .catch(errorHandlers);
 }
-exports.showRefferal = function(req, res){
-    db.Refferal.findById(req.params.id)
-    .then(function(foundRefferal){
-            res.render("refferals/show", {refferal: foundRefferal});
-    })
-    .catch(errorHandlers);
-}
+
 exports.updateRefferal = function(req, res){
     db.Refferal.findByIdAndUpdate(req.params.refferalid, req.body.refferal)
     .then(function(updatedRefferal){
@@ -75,22 +69,22 @@ exports.updateRefferal = function(req, res){
     .catch(errorHandlers);
 }
 exports.deleteRefferal = function(req, res) {
-    db.Patient.findById(req.params.id)
+    db.Patient.findOneAndUpdate({_id: req.params.id}, 
+            { $pull: {"refferals": {$in: [ObjectID(req.params.refferalId)]} }})
     .then(function(patients){
       db.Refferal.findByIdAndRemove(req.params.refferalId)
       .then(function(refferal){
-          patients.update({_id: req.params.id}, 
-            { $pull: {"refferals": {$in: [ObjectID(req.params.refferalId)]} }});
             res.redirect("/patients/"+req.params.id);
-      })
+    })
     })
     .catch(errorHandlers);
 }
 
-exports.showAllPatientsAndRefferals = function(req, res){
+exports.showAllRefferals = function(req, res){
    db.Patient.find({})
    .then(function(foundPatient){
-            res.render("refferals/index", {patients: foundPatient, refferals: foundPatient.refferals});
+       console.log(foundPatient.refferals)
+            res.render("refferals/index", {patients: foundPatient});
     })
     .catch(errorHandlers);
 }

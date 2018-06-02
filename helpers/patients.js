@@ -1,16 +1,16 @@
 var  mongoose = require("mongoose"),
     db = require("../models");
 
-exports.listPatients =  function(req, res){
-    res.render("patients/show");
-}     
-
+exports.newPatient = function(req, res){
+    res.render("patients/new");
+}
 exports.listAllPatients =  function(req, res){
     db.Patient.find({})
     .then(function(allPatients){
-            res.render("patients/index", {patient: allPatients});
+        console.log(allPatients)
+          res.render("patients/index", {patient: allPatients});
     })
-    .catch(errorHandlers)
+    .catch(errorHandlers);
 }
 
 exports.addNewPatient = function(req, res){
@@ -37,7 +37,7 @@ exports.addNewPatient = function(req, res){
         db.Patient.create(newPatient)
         .then(function(patient){
                 req.flash("success", "Zarejestrowano pacjenta!")
-                res.redirect("patients/index");
+                res.render("patients/index");
         })
         .catch(errorHandlers);
 }
@@ -106,7 +106,7 @@ exports.updatePatient = function(req, res){
 }
 
 exports.deletePatient =  function(req, res){
-    db.Patient.findByIdAndRemove(req.params.patient_id)
+    db.Patient.findByIdAndRemove(req.params.id)
     .then(function(){
             req.flash("success", "Pomyślnie usunięto pacjenta z rejestru")
             res.redirect("/");
@@ -123,7 +123,19 @@ exports.editPatient =  function(req, res){
             res.render("patients/edit", {patient: foundPatient});
     });
 }
-
+// exports.showRefferal = function(req, res){
+//     db.Refferal.findById(req.params.id)
+//     .then(function(foundRefferal){
+//             res.render("refferals/show", {refferal: foundRefferal});
+//     })
+//     .catch(errorHandlers);
+// }
+exports.showAllRefferals = function(req, res){
+    db.Patient.find({})
+    .then(function(patients){
+        res.render("refferals/index", {patients: patients, refferals: patients.refferals});
+    })
+}
 function errorHandlers(err, req, res, next){
     if(err){
             console.log(err);

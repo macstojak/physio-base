@@ -15,7 +15,7 @@
 
                          <a class="btn btn-xs btn-warning" 
                            href="/patients/<%=patient._id %>/addresses/<%=address._id %>/">Edytuj adres</a>
-                              
+      
                         <form style="display:inline;" action="/patients/<%=patient._id %>/addresses/<%=address._id%>?_method=DELETE" method="POST">
                             <button class="btn btn-xs btn-danger">Usuń adres</button>
                         </form>
@@ -72,7 +72,9 @@
                     </ul>
                     <% })%>
                  <% } %>
+                 
+                
 </div>  
-
-
+<br>
+ <a class="btn btn-success" href="/patients/index">Wróć do listy pacjentów</a>
 <% include ../partials/footer %>

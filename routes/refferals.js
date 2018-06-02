@@ -14,15 +14,17 @@ router.route("/")
 .post(helpers.addRefferal);
 //SHOW REFFERAL
 router.route("/:refferalId")
-.get(helpers.showRefferal)
+.get(helpers.editRefferal)
 .put(helpers.updateRefferal)
-.delete(helpers.deleteRefferal)
+.delete(helpers.deleteRefferal);
 
 //SHOW ALL PATIENTS - ALL REFFERALS
-router.get("/index", helpers.showAllPatientsAndRefferals);
+router.route("/index")
+.get(helpers.showAllRefferals);
 
 //EDIT ROUTE - EDIT REFFERAL
-router.get("/:refferalId/edit", helpers.editRefferal);
+// router.route("/:refferalId/edit")
+// .get(helpers.editRefferal);
 
 
 
