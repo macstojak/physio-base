@@ -10,12 +10,12 @@ var mongoose = require("mongoose"),
             }
         ],
         appointmentdate: String,
-        supervisor: {
+        supervisors: [{
             
             type: mongoose.Schema.Types.ObjectId,
             ref: "Supervisor",
             autopopulate: true 
-        },
+        }],
         month: String,
         year: String,
         queue: Number,

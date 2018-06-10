@@ -92,6 +92,8 @@ exports.showPatient = function(req, res){
 //TRZECIE ROZWIAZANIE - AUTOPOPULATE PLUGIN
 db.Patient.findById(req.params.id)
     .then(function(foundPatient){
+        console.log(foundPatient.addresses)
+        console.log(foundPatient.refferals)
             res.render("patients/show", {patient: foundPatient, addresses: foundPatient.addresses, refferals:foundPatient.refferals});
     })
     .catch(errorHandlers);
@@ -136,6 +138,7 @@ exports.showAllRefferals = function(req, res){
         res.render("refferals/index", {patients: patients, refferals: patients.refferals});
     })
 }
+
 function errorHandlers(err, req, res, next){
     if(err){
             console.log(err);

@@ -52,10 +52,12 @@ app.use("/", indexRoutes);
 app.use("/patients", patientRoutes);
 app.use("/patients/:id/addresses", addressRoutes);
 app.use("/refferals", refferalRoutes);
-app.use("/refferals/:id", refferalRoutes);
+app.use("/refferals/:refferalId/appointments", appointmentRoutes);
+app.use("/refferals/:refferalId", refferalRoutes);
 app.use("/appointments", appointmentRoutes);
 app.use("/patients/:id/refferals", refferalRoutes);
-app.use("/refferals/:id/appointments", appointmentRoutes);
+
+app.use("/patients/:id/refferals/:refferalId/appointments", appointmentRoutes)
 
 
 

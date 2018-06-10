@@ -28,9 +28,7 @@
 <h3>Skierowania pacjenta:</h3>
        <% if(patient.refferals ===null || patient.refferals === undefined || patient.refferals.length ===0){%>
                        <p>Brak skierowań...</p>
-                       <a class="btn btn-xs btn-success" href="/patients/<%= patient._id%>/refferals/">Dodaj nowe skierowanie</a>
                    <% }else{%>
-                    <a class="btn btn-xs btn-success" href="/patients/<%= patient._id%>/refferals/">Dodaj nowe skierowanie</a>
                     <% patient.refferals.forEach(function(refferal){ %>
                     
                     <ul>
@@ -42,7 +40,7 @@
                             <% if(refferal.clinic === undefined || refferal.clinic === null ){%>
                             Brak jednostki kierującej..
                             <% }else{ %>
-                            <%= console.log(refferal.clinic.regon) %> - 
+                            <%= refferal.clinic.regon %> - 
                             <%= refferal.clinic.name %>
                             
                             <% } %>
@@ -52,7 +50,7 @@
                             <% if(refferal.doctor === undefined || refferal.doctor === null ){%>
                             Brak lekarza kierującego
                             <% }else{ %>
-                            <%= console.log(refferal.doctor)%> - 
+                            <%= refferal.doctor.nrpwz%> - 
                             <%= refferal.doctor.lastname %>
                             <%= refferal.doctor.firstname %>
                             <% } %>
@@ -62,6 +60,8 @@
                             <li><%=disease.code%> - <%=disease.name%><br/></li>
                             <% })%>    
                             </ul>
+                             <a class="btn btn-xs btn-primary" 
+                           href="/patients/<%=patient._id %>/refferals/<%=refferal._id %>/show">Pokaż skierowanie</a>
                          <a class="btn btn-xs btn-warning" 
                            href="/patients/<%=patient._id %>/refferals/<%=refferal._id %>/">Edytuj skierowanie</a>
                                
@@ -70,8 +70,11 @@
                         </form>
                         </li>
                     </ul>
+                    <% include ../partials/appointments/show %>
                     <% })%>
                  <% } %>
+
+
                  
                 
 </div>  

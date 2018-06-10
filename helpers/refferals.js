@@ -100,7 +100,7 @@ exports.editRefferal =  function(req, res){
                     .then(function(clinics){
                         db.Disease.find({})
                         .then(function(diseases){
-                            res.render("refferals/edit", {patient: foundPatient, refferal: foundRefferal, diseases:diseases, doctors:doctors, clinics: clinics});
+                            res.render("refferals/edit", {patient: foundPatient, refferal: foundRefferal, diseases: diseases, doctors: doctors, clinics: clinics});
                         })
                     })
                 })
@@ -108,6 +108,54 @@ exports.editRefferal =  function(req, res){
     })
     .catch(errorHandlers);
 }
+
+exports.showOneRefferal =  function(req, res){
+    db.Patient.findById(req.params.id)
+    .then(function(foundPatient){
+            db.Refferal.findById(req.params.refferalId)
+            .then(function(foundRefferal){
+               db.Doctor.find({})
+                .then(function(doctors){
+                    db.Clinic.find({})
+                    .then(function(clinics){
+                        db.Disease.find({})
+                        .then(function(diseases){
+                            res.render("refferals/show", {patient: foundPatient, refferal: foundRefferal, diseases: diseases, doctors: doctors, clinics: clinics});
+                        })
+                    })
+                })
+            })
+    })
+    .catch(errorHandlers);
+}
+// exports.newAppointment = function(req, res){
+
+//       db.Refferal.findById(req.params.refferalId, function(foundRefferal){
+//           db.Physiotherapist.find(function(physiotherapists){
+//                 db.Disease.find(function(diseases){
+//                     db.Supervisor.find(function(supervisors){
+//             console.log("physiotherapists:" + physiotherapists);
+            
+//         res.render("appointments/new", {
+//         refferal: foundRefferal, 
+//         physiotherapists: physiotherapists, 
+//         diseases: diseases, 
+//         supervisors: supervisors
+            
+//         })
+
+   
+//     })
+    
+//     })
+   
+//     })
+    
+             
+//       })
+//  .catch(errorHandlers)
+// }
+
 
 function errorHandlers(err, req, res, next){
     if(err){

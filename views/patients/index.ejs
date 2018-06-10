@@ -2,22 +2,12 @@
 <div class="container-fluid">    
 <h1 class="font-spaced" >Rejestr pacjentów: </h1>
 <% include ../partials/patient/patient-header %>
-                    <% if (typeof patient === 'undefined' || patient.length < 0) {%>
-                    <tr>
-                         
-                        <th scope="row">Brak pacjentów ...  
-                        <div class="text-right">
-                        <a class="btn btn-xs btn-success" 
-                        href="/patients/">Dodaj nowego pacjenta</a>
-                        </div>
-                        </th>
-                    </tr>
-                    <% }else{ %>
+                   
              
                     <% patient.forEach(function(patients){%>
                     <tr>
                        
-                        <td><%=patient.indexOf(patients)%></td>
+                        <td><%=patient.indexOf(patients) + 1%></td>
                         <td><%=patients.firstname%></td>
                         <td><%=patients.lastname%></td>
                          <td><%=patients.pesel%></td>
@@ -42,7 +32,7 @@
                 
             </tr>
                     
-        <% })}%>
+        <% })%>
         <% include ../partials/patient/patient-footer %>
 </div>
 <% include ../partials/footer %>

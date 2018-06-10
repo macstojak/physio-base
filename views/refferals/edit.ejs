@@ -1,6 +1,6 @@
 <% include ../partials/header %>
  <div class="container">
-        <form action="/patients/<%= patient._id%>/refferals/<%=refferal._id%>?_method=PUT" method="POST">
+        <form action="/patients/<%= patient._id%>/refferals/<%= refferal._id%>?_method=PUT" method="POST">
            <h3>Edytuj skierowanie pacjenta - "<%=patient.firstname%> <%=patient.lastname%>" z dnia <%= refferal.refdate %>:</h3>
                 <hr>
                 <div class="col-md-6 col-sm-12">
@@ -49,9 +49,9 @@
                  <h3>Skierowania na zabiegi:</h3>
                    <% if(refferal.appointments ===null || refferal.appointments === undefined || refferal.appointments.length ===0){%>
                        <p>Brak skierowań na zabiegi...</p>
-                       <a class="btn btn-xs btn-success" href="/refferals/<%= refferal._id%>/appointments/new">Nowe skierowanie na zabiegi</a>
+                       <a class="btn btn-xs btn-success" href="/refferals/<%= refferal._id%>/appointments/">Nowe skierowanie na zabiegi</a>
                    <% }else{%>
-                     <a class="btn btn-xs btn-success" href="/refferals/<%= refferal._id%>/appointments/new">Nowe skierowanie na zabiegi</a>
+                     <a class="btn btn-xs btn-success" href="/refferals/<%= refferal._id%>/appointments/">Nowe skierowanie na zabiegi</a>
                     <% refferal.appointments.forEach(function(appointment){ %>
   
                     <ul>

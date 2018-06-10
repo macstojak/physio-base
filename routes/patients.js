@@ -18,10 +18,7 @@ router.route("/:id")
 .delete(helpers.deletePatient);
 router.route("/:id/refferals/index")
 .get(helpers.showAllRefferals);
+router.get("/:id/edit", helpers.editPatient);
 
-
-
-
-router.get("/:id/edit", helpers.editPatient)
 
 module.exports = router;

@@ -23,8 +23,9 @@
         <form action="/refferals/<%= refferal._id%>/?_method=DELETE" method="POST">
              <input type="submit" class="btn btn-xs btn-danger" value="Usuń skierowanie">
         </form>
+          <a class="btn btn-xs btn-success" href="/patients/<%= patient._id%>/refferals/<%= refferal._id %>/appointments/">Nowa wizyta lekarza rehabilitacji</a>
     <div class="container">    
-        <a class="btn btn-xs btn-success" href="/refferals/<%= refferal._id %>/appointments/new">Nowa wizyta lekarza rehabilitacji</a>
+      
             <% refferal.appointments.forEach(function(appointment){%>
                 <h4>Data wizyty: </h4><%= appointment.appointmentdate%>
                 <br>

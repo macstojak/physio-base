@@ -22,10 +22,9 @@ router.route("/:refferalId")
 router.route("/index")
 .get(helpers.showAllRefferals);
 
-//EDIT ROUTE - EDIT REFFERAL
-// router.route("/:refferalId/edit")
-// .get(helpers.editRefferal);
-
+// EDIT ROUTE - EDIT REFFERAL
+router.route("/:refferalId/show")
+.get(helpers.showOneRefferal);
 
 
 module.exports = router;

@@ -1,0 +1,53 @@
+<h3>Wizyty lekarskie/rehabilitacyjne:</h3>
+       <% if(refferal.appointments ===null || refferal.appointments === undefined || refferal.appointments.length ===0){%>
+                       <p>Brak wizyt...</p>
+                   <% }else{%>
+                    
+                    <% refferal.appointments.forEach(function(appointment){ %>
+                    
+                    <ul>
+                        <li style="display:inline;">
+                            <%=appointment.appointmentdate%> - 
+                            <br>
+                            Przydzielony fizjoterapeuta:
+                            <br>
+                            <% if(appointment.physiotherapists === undefined || appointment.physiotherapists.length < 1 ){%>
+                            Brak fizjoterapeutów..
+                            <% }else{ %>
+                            <% appointment.physiotherapists.forEach(function(physiotherapist){ %>
+                            <%= appointment.physiotherapist.nrpwz %> - 
+                            <%= appointment.physiotherapist.lastname %> <%= appointment.physiotherapist.firstname %>
+                            <% }) %>
+                            <% } %>
+                            <br>
+                            
+                            Lekarz lub rehabilitant nadzorujący:
+                            <% if(appointment.supervisor === undefined || appointment.supervisor.length < 1 ){%>
+                            Brak osoby prowadzącej...
+                            <% }else{ %>
+                            <% appointment.supervisors.forEach(function(supervisor){ %>
+                            <%= appointment.supervisor.nrpwz%> - 
+                            <%= appointment.supervisor.lastname %>
+                            <%= appointment.supervisor.firstname  %>
+                            <% }) %>
+                            <% } %>
+                            <br>
+                            <ul>Choroby:
+                            <% appointment.diseases.forEach(function(disease){ %>
+                            <li><%=disease.code%> - <%=disease.name%><br/></li>
+                            <% })%>    
+                            </ul>
+                            Nr kolejki, stan pacjenta i termin realizacji świadczenia:
+                            <%=appointment.queue%> <% refferal.state %> - <%=appointment.month%> <%=appointment.year%>
+                         <a class="btn btn-xs btn-warning" 
+                           href="/patients/<%=patient._id %>/refferals/<%= refferal._id%>/appointments/<%=appointment._id %>/">Edytuj skierowanie</a>
+                               
+                        <form style="display:inline;" action="/patients/<%=patient._id %>/refferals/<%=refferal._id%>appointments/<%=appointment._id%>?_method=DELETE" method="POST">
+                            <button class="btn btn-xs btn-danger">Usuń skierowanie</button>
+                        </form>
+                        </li>
+                    </ul>
+                    <% })%>
+                 <% } %>
+                 
+                 
