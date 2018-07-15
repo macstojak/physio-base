@@ -26,12 +26,14 @@ exports.newAppointment = function(req, res){
 }
 
 exports.addAppointment = function(req, res){
-    db.Refferal.findById(req.params.id)
+    db.Refferal.findById(req.params.refferalId)
     .then(function(foundRefferal){
         var diseasesTable = req.body.appointment.diseases,
             physiotherapistsTable = req.body.appointment.physiotherapists,
+            supervisorsTable = req.body.appointment.supervisors,
             diseases = [],
-            physiotherapists = [];
+            physiotherapists = [],
+            supervisors = [];
 
 
         if(!(diseasesTable === undefined)){
@@ -59,6 +61,20 @@ exports.addAppointment = function(req, res){
         }else{
                 physiotherapists = [];
             }
+            
+         if(!(supervisorsTable === undefined)){
+            if(Array.isArray(supervisorsTable) && supervisorsTable.length > 1){
+                for(var i = 0; i<supervisorsTable.length; i++){
+                           var id = mongoose.Types.ObjectId(supervisorsTable[i]);
+                           supervisors.push(id);
+                }
+                }else{
+             supervisors =  mongoose.Types.ObjectId(supervisorsTable) 
+            }
+            
+        }else{
+                supervisors = [];
+            }
       
         var newAppointment = {
         appointmentdate: req.body.appointment.appointmentdate,
@@ -67,17 +83,18 @@ exports.addAppointment = function(req, res){
         queue: req.body.appointment.queue,
         state: req.body.appointment.state,
         diseases: diseases,
-        supervisor: mongoose.Types.ObjectId(req.body.appointment.supervisor),
+        supervisors: supervisors,
         physiotherapists: physiotherapists
         }
-          
+         
         db.Appointment.create(newAppointment)
         .then(function(appointment){
+            
             appointment.save();
             foundRefferal.appointments.push(appointment._id);
             foundRefferal.save();
              req.flash("success", "Zarejestrowano skierowanie!")
-                res.redirect("show");
+                res.redirect("/appointments/index");
             })
         })
         .catch(errorHandlers)
@@ -91,6 +108,7 @@ exports.editAppointment = function(req, res){
                     .then(function(diseases){
                         db.Supervisor.find({})
                         .then(function(supervisors){
+                            console.log(supervisors)
                             res.render("appointments/edit", {appointment: foundAppointment, months: foundAppointment.month, diseases: diseases, physiotherapists: physiotherapists, supervisors: supervisors})    
                             })
                     })
@@ -101,6 +119,7 @@ exports.editAppointment = function(req, res){
 exports.updateAppointment = function(req, res){
        db.Appointment.findByIdAndUpdate(req.params.appointmentid, req.body.appointment)
        .then(function(updatedAppointment){
+           console.log("UPDATE FORM PHYSIOTHERAPIST: "); console.dir(req.body.appointment)
             req.flash("success", "Zmieniono dane na skierowaniu")
             res.redirect(req.session.prevPrevPath);
         })
@@ -121,6 +140,28 @@ exports.deleteAppointment = function(req, res){
       })
     })
 }
+exports.showOneAppointment = function(req, res){
+    db.Patient.findById(req.params.id)
+    .then(function(patient){
+        db.Refferal.findById(req.params.refferalId)
+        .then(function(refferal){
+            db.Appointment.findById(req.params.appointmentid)
+            .then(function(appointment){
+              db.Disease.find({})
+              .then(function(diseases){
+                  db.Physiotherapist.find({})
+                  .then(function(physiotherapists){
+                      db.Supervisor.find({})
+                      .then(function(supervisors){
+                          res.render("appointments/show", {patient: patient, refferal: refferal, 
+                          appointment: appointment, diseases: diseases, physiotherapists: physiotherapists, supervisors: supervisors})
+                      })
+                  })
+              })
+            })
+            })
+        })
+    }
 
 // exports.newAppointment = function(req, res){
 

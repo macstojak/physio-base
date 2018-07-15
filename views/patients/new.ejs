@@ -1,45 +1,49 @@
 <% include ../partials/header %>
     
-    <div class="container">
+    <div class="container white-container">
         
+        <div class="text-container">
         <form action="/patients" method="POST">
            <h3>Dane osobowe:</h3>
                 <hr>
-            <div class="form-row">
+            <div class="row">
                 
                 
-                <div class="col-md-6 col-sm-12">
+                <div class="col-md-6 col-sm-6">
                 <label>Imię pacjenta:</label>
                 <input class="form-control" type="text" name="firstname">
                 </div>
-                <div class="col-md-4 col-sm-12">
+                <div class="col-md-6 col-sm-6">
                 <label>Nazwisko pacjenta:</label>
                 <input class="form-control" type="text" name="lastname">
                 </div>
-                 <div class="col-md-4 col-sm-12">
+             </div>
+            <div class="row">
+                 <div class="col-md-6 col-sm-6">
                 <label>PESEL:</label>
                 <input class="form-control" type="text" name="pesel">
                 </div>
-                <div class="col">
+                <div class="col-md-6 col-sm-6">
                 <label>Nr kontaktowy telefonu:</label>
                 <input class="form-control" type="text" name="phone">
                 </div>
             </div>
+           
             
            
             <h3>Ubezpieczenie:</h3>
                 <hr>
-            <div class="form-row">
+            <div class="row">
                 
-                <div class="col col-md-6 col-sm-12">
+                <div class="col-md-6 col-sm-4">
                 <label>Numer ubezpieczenia:</label>
                 <input class="form-control" type="text" name="securitynr">
                 </div>
-                <div class="col col-md-4 col-sm-12">
+                <div class="col-md-3 col-sm-3">
                 <label>Data wydania ubezpieczenia:</label>
                 <input class="form-control" type="text" name="securitydate">
                 </div>
-                <div class="col">
+                <div class="col-md-3 col-sm-3">
                 <label>Nazwa ubezpieczyciela:</label>
                 <select class="form-control" name="securityinstance">
                     <option selected>Wybierz jedną z instytucji...</option>
@@ -50,10 +54,13 @@
                 </select>
                 </div>
             </div>
-          
+            <br>
+          <div class="row">
             <button class="btn btn-success">Zapisz pacjenta</button>
+            </div>
         </form>
-        
+       <br>
+        </div>
     </div>
 
 <% include ../partials/footer %>

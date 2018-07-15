@@ -2,6 +2,7 @@
 <div class="container">
    
     <% if(!currentUser){ %>
+
     <div class="row text-center">
         <div class="col-md-6 tile">
             <h3><a href="/login">Zaloguj się do systemu</a></h3>
@@ -10,6 +11,7 @@
             <h3><a href="/register">Zarejestruj się jako nowy użytkownik</a></h3>
         </div>
     </div>
+
     <% } else { %>
      <div class="jumbotron"><h1>Witaj na stronie PhysioBase, <%= currentUser.username %>  </h1></div>
     <div class="container">
@@ -51,6 +53,6 @@
         </div>
     </div>
     <% } %>
-    <h2>Przejdź do listy pacjentów</h2>
+ 
 </div>
 <% include partials/footer %>

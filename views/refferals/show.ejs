@@ -1,23 +1,23 @@
 <% include ../partials/header %>
-<h4>Skierowanie :</h4>
 
-<div class="container">
 
+<div class="container" style="border:">
+<h3>Skierowanie pacjenta:</h3>
  
-        <%= refferal.refdate %><br>
-     <%= refferal.clinic.name%><br>
-        <%= refferal.doctor.lastname%> <%= refferal.doctor.firstname%> - <%= refferal.doctor.nrpwz%><br>
-   <% refferal.diseases.forEach(function(disease){ %>
+        <h4><%= refferal.refdate %></h4>
+        <br>
+     <h4><%= refferal.clinic.name%></h4>
+     <br>
+        <h4><%= refferal.doctor.lastname%> <%= refferal.doctor.firstname%> - <%= refferal.doctor.nrpwz%></h4>
+        <br>
+   <h4><% refferal.diseases.forEach(function(disease){ %>
                                  <%=disease.code%> - <%=disease.name%>
                                        <% if(refferal.diseases[refferal.diseases.length-1] == disease){ %>
                                     ;
                                     <% }else{ %>
                                     , <% } %>
-                                    
-                                 
-                               
-                                  
                                     <% }) %>
+                                    </h4>
 <br>
        <a class="btn btn-xs btn-warning" href="/refferals/<%=refferal._id%>/edit">Edytuj skierowanie</a>
         <form action="/refferals/<%= refferal._id%>/?_method=DELETE" method="POST">
@@ -25,24 +25,37 @@
         </form>
           <a class="btn btn-xs btn-success" href="/patients/<%= patient._id%>/refferals/<%= refferal._id %>/appointments/">Nowa wizyta lekarza rehabilitacji</a>
     <div class="container">    
-      
+      <h3>Wizyty zleceniowe:</h3>
             <% refferal.appointments.forEach(function(appointment){%>
-                <h4>Data wizyty: </h4><%= appointment.appointmentdate%>
+                <h4>Data wizyty: <%= appointment.appointmentdate%></h4>
                 <br>
-                <h4>Stan pacjenta: </h4><%= appointment.state%>
+                <h4>Stan pacjenta: <%= appointment.state%></h4>
                 <br>
-                <h4>Nadzorca: </h4><%= appointment.supervisor.lastname %> <%= appointment.supervisor.firstname %> - <%= appointment.supervisor.nrpwz %>
+                <h4>Osoba nadzorująca:  
+                <% appointment.supervisors.forEach(function(supervisor){%>
+                <%= supervisor.lastname %> <%= supervisor.firstname %> - <%= supervisor.nrpwz %>
+                <% }) %> 
+                </h4>
+               
                 <br>
-                <h4>Fizjoterapeuta: </h4><%= appointment.physiotherapist %>
+                <h4>Fizjoterapeuta: 
+                <% appointment.physiotherapists.forEach(function(physiotherapist){%>
+                <%= physiotherapist.lastname %> <%= physiotherapist.firstname %> - <%= physiotherapist.pesel %>
+                <% })%>
+                </h4>
+                
                 <br>
-                <h4>Termin realizacji: </h4><%= appointment.month %> <%= appointment.year%>
+                <h4>Nr kolejki i termin realizacji: <%= appointment.queue%>. - <%= appointment.month %> <%= appointment.year%></h4>
                 <br>
-                <h4>Kolejka: </h4><%= appointment.queue%>
-                <br>
-                <h4>Choroby pacjenta: </h4>
-                <% appointment.diseases.forEach(function(disease){ %>
+                
+                <h4>Choroby pacjenta: 
+                <ul>
+                 <% appointment.diseases.forEach(function(disease){ %>
                     <li><%= disease.code%> - <%= disease.name%></li>
                 <% }) %>
+                </ul>
+                </h4>
+               
             <% }) %>
     </div>
 </div>

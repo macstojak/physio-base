@@ -126,7 +126,7 @@ function seedDB()
             console.log(err);
         }else
         {
-            SupervisorAddress.remove({},function(err){
+            Address.remove({},function(err){
                 if(err){
                     console.log(err)
                 }else{
@@ -142,7 +142,7 @@ function seedDB()
                             town: seed.address.town
                         }
                      
-                        SupervisorAddress.create(newAddress, function(err, address){
+                        Address.create(newAddress, function(err, address){
                              if(err){
                                  console.log(err);
                              }else{

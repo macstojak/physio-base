@@ -2,8 +2,10 @@
 <h5 id="hmonth"><%= appointment.month %></h5>
 <h5 id="hstate"><%= appointment.state %></h5>
 
- <div class="container">
+ <div class="container white-container">
+   
         <form action="/appointments/<%= appointment._id%>?_method=PUT" method="POST">
+              <div class="text-container">
            <h3>Nowa wizyta:</h3>
                 <hr>
                 <div class="col-md-6 col-sm-12">
@@ -42,22 +44,30 @@
                 </div>
                 <div class="col-md-6 col-sm-12">
                 <label>Nr kolejki:</label>
-                <input class="form-control" type="text" name="appointment[queue]" value="<%=appointment.appointmentdate%>">
+                <input class="form-control" type="text" name="appointment[queue]" value="<%=appointment.queue%>">
                 </div>
                 <div class="col-md-6 col-sm-12">
                 <label>Osoba prowadząca:</label>
-                <select name="appointment[supervisor]" data-live-search="true" class="selectpicker" id="selectSupervisor" value="<%= appointment.supervisor%>">
-                 
-                     <% supervisors.forEach(function(supervisor){ %>
+                <select name="appointment[supervisors]" multiple data-live-search="true" class="selectpicker" id="selectSupervisor" value="<%= appointment.supervisors%>">
+                <% if(appointment.supervisors.length<1 || appointment.supervisors === undefined){ %>
+                          <% supervisors.forEach(function(supervisor){ %>
+                                    <option value="<%= supervisor._id%>">
+                                        <%= supervisor.nrpwz %> - <%= supervisor.firstname %> <%= supervisor.lastname %>
+                                    </option>
+                                    <% }) %>
+                  <% }else{ %>
+                  <% appointment.supervisors.forEach(function(apposupervisor){%>
+                  <% supervisors.forEach(function(supervisor){ %>
                     
-                           <% if(appointment.supervisor._id.equals(supervisor._id)){ %>
+                           <% if(apposupervisor._id.equals(supervisor._id)){ %>
                            <% var selection = "selected" %>
                            <% } %>
                             <option value="<%= supervisor._id%>" <%= selection %>>
                                 <%= supervisor.nrpwz%> - <%=supervisor.firstname %> <%= supervisor.lastname %>
                             </option>
                             <% }) %>
-                        
+                        <% })%>
+                  <% } %>
                     
                     
                 </select>
@@ -81,9 +91,15 @@
                     </select>
                 </div>
                 <label>Fizjoterapeuta:</label>
-                <select multiple name="appointment[physioterapists]" data-live-search="true" class="selectpicker" value="<%= appointment.physiotherapists %>" id="selectPhysiotherapist">
+                <select multiple name="appointment[physiotherapists]" data-live-search="true" class="selectpicker" value="<%= appointment.physiotherapists %>" id="selectPhysiotherapist">
+                   <% if(appointment.physiotherapists.length<1 || appointment.physiotherapists === undefined){%>
                    
-                  
+                   <% physiotherapists.forEach(function(physiotherapist){ %>
+                     <option value="<%= physiotherapist._id%>">
+                                        <%= physiotherapist.pesel %> - <%= physiotherapist.firstname %> <%= physiotherapist.lastname %>
+                                    </option>
+                                    <% }) %>
+                    <% }else{ %>
                      <% physiotherapists.forEach(function(physiotherapist){ %>
                       <% appointment.physiotherapists.forEach(function(appophysio){%>
                            <% if(appophysio._id.equals(physiotherapist._id)){ %>
@@ -95,13 +111,15 @@
                             <% }) %>
                         
                     <% }) %>
+                    <% } %>
+                    
                 </select>
                 </div>
                
                 <div class="col-md-6 col-sm-12">
                     <button class="btn btn-xs btn-success centered">Zapisz pacjenta</button>
                 </div>
-            
+          </div>  
         </form>
     </div>
 

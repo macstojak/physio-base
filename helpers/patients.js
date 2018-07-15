@@ -37,7 +37,7 @@ exports.addNewPatient = function(req, res){
         db.Patient.create(newPatient)
         .then(function(patient){
                 req.flash("success", "Zarejestrowano pacjenta!")
-                res.render("patients/index");
+                res.redirect("/patients/index");
         })
         .catch(errorHandlers);
 }
@@ -92,9 +92,10 @@ exports.showPatient = function(req, res){
 //TRZECIE ROZWIAZANIE - AUTOPOPULATE PLUGIN
 db.Patient.findById(req.params.id)
     .then(function(foundPatient){
-        console.log(foundPatient.addresses)
-        console.log(foundPatient.refferals)
-            res.render("patients/show", {patient: foundPatient, addresses: foundPatient.addresses, refferals:foundPatient.refferals});
+
+        console.log(foundPatient.appointments)
+            res.render("patients/show", {patient: foundPatient, addresses: foundPatient.addresses, refferals: foundPatient.refferals
+            });
     })
     .catch(errorHandlers);
 }

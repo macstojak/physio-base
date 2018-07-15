@@ -11,7 +11,9 @@ router.route("/")
 
 router.route("/:appointmentid")
 .get(helpers.editAppointment)
-.post(helpers.updateAppointment)
+.put(helpers.updateAppointment)
 .delete(helpers.deleteAppointment);
 
+router.route("/:appointmentid/show")
+.get(helpers.showOneAppointment)
 module.exports = router;    

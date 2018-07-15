@@ -45,17 +45,18 @@
                     <a href="#">Mapa</a>
                   </li>
             </ul>
-        </div>
-       
+            
              <ul class="nav navbar-nav navbar-right ">
                  <% if(!currentUser){ %>
-                <li ><a class="btn btn-success"href="/login">Zaloguj się</a></li>
-                <li ><a class="btn btn-info" href="/register">Zarejestruj się</a></li>
+                <li ><a class="btn btn-md btn-success"href="/login">Zaloguj się</a></li>
+                <li ><a class="btn btn-md btn-info" href="/register">Zarejestruj się</a></li>
                 <% } else { %>
-                <li class="navbar-text"><a href="#">Witaj, <%= currentUser.username %></a></li>
-                <li ><a class="btn btn-warning" href="/logout">Wyloguj</a></li>
+                <li><a class="navbar-brand" href="#">Witaj, <%= currentUser.username %></a></li>
+                <li ><a class="btn btn-md btn-warning" href="/logout">Wyloguj</a></li>
                 <% } %>
              </ul>
+        </div>
+       
     </div>   
  </nav>
 </br>

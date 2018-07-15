@@ -1,6 +1,8 @@
 <% include ../partials/header %>
 
-<div class="container">
+<div class="container white-container">
+   
+    <div class="text-container">
 <h3><%=patient.firstname%> <%=patient.lastname%> - <%=patient.pesel%></h3>
 <br>
 <h3>Adresy pacjenta:</h3>
@@ -27,16 +29,20 @@
 
 <h3>Skierowania pacjenta:</h3>
        <% if(patient.refferals ===null || patient.refferals === undefined || patient.refferals.length ===0){%>
+                       <a class="btn btn-xs btn-success" 
+                           href="/patients/<%= patient._id%>/refferals/">Dodaj nowe skierowanie</a>
                        <p>Brak skierowań...</p>
+                       
+                         
                    <% }else{%>
                     <% patient.refferals.forEach(function(refferal){ %>
                     
                     <ul>
                         <li style="display:inline;">
-                            <%=refferal.refdate%> - 
+                            Data skierowania: <%=refferal.refdate%>
                             <br>
                             Jednostka kierująca:
-                            <br>
+                            
                             <% if(refferal.clinic === undefined || refferal.clinic === null ){%>
                             Brak jednostki kierującej..
                             <% }else{ %>
@@ -75,9 +81,10 @@
                  <% } %>
 
 
-                 
-                
+         </div>        
+             
 </div>  
 <br>
  <a class="btn btn-success" href="/patients/index">Wróć do listy pacjentów</a>
+
 <% include ../partials/footer %>

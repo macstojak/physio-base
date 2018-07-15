@@ -1,0 +1,127 @@
+<% include ../partials/header %>
+
+<div class="container white-container">
+   
+    <div class="text-container">
+<h3><%=patient.firstname%> <%=patient.lastname%> - <%=patient.pesel%></h3>
+<br>
+<h3>Adresy pacjenta:</h3>
+       <% if(patient.addresses ===null || patient.addresses === undefined || patient.addresses.length ===0){%>
+                       <p>Brak zarejestrowanych adresów...</p>
+                       <a class="btn btn-xs btn-success" href="/patients/<%= patient._id%>/addresses/">Dodaj nowy adres</a>
+                   <% }else{%>
+                   
+                    <% patient.addresses.forEach(function(address){ %>
+                   
+                        <p><%=address.streetname%> <%=address.nrblock%>/<%=address.nrflat%>, <%=address.zipcode%> <%=address.town%></p>
+                 
+                    <% })%>
+                 <% } %>
+                 
+
+<h3>Skierowanie:</h3>
+       <% if(patient.refferals ===null || patient.refferals === undefined || patient.refferals.length ===0){%>
+                       <a class="btn btn-xs btn-success" 
+                           href="/patients/<%= patient._id%>/refferals/">Dodaj nowe skierowanie</a>
+                       <p>Brak skierowań...</p>
+                       
+                         
+                   <% }else{%>
+                    <% patient.refferals.forEach(function(refferal){ %>
+                    
+                    <ul>
+                        <li style="display:inline;">
+                            Data skierowania: <%=refferal.refdate%>
+                            <br>
+                            Jednostka kierująca:
+                            
+                            <% if(refferal.clinic === undefined || refferal.clinic === null ){%>
+                            Brak jednostki kierującej..
+                            <% }else{ %>
+                            <%= refferal.clinic.regon %> - 
+                            <%= refferal.clinic.name %>
+                            
+                            <% } %>
+                            <br>
+                            
+                            Lekarz kierujący:
+                            <% if(refferal.doctor === undefined || refferal.doctor === null ){%>
+                            Brak lekarza kierującego
+                            <% }else{ %>
+                            <%= refferal.doctor.nrpwz%> - 
+                            <%= refferal.doctor.lastname %>
+                            <%= refferal.doctor.firstname %>
+                            <% } %>
+                            <br>
+                            <ul>Choroby:
+                            <% refferal.diseases.forEach(function(disease){ %>
+                            <li><%=disease.code%> - <%=disease.name%><br/></li>
+                            <% })%>    
+                            </ul>
+                             <a class="btn btn-xs btn-primary" 
+                           href="/patients/<%=patient._id %>/refferals/<%=refferal._id %>/show">Pokaż skierowanie</a>
+                         <a class="btn btn-xs btn-warning" 
+                           href="/patients/<%=patient._id %>/refferals/<%=refferal._id %>/">Edytuj skierowanie</a>
+                               
+                        <form style="display:inline;" action="/patients/<%=patient._id %>/refferals/<%=refferal._id%>?_method=DELETE" method="POST">
+                            <button class="btn btn-xs btn-danger">Usuń skierowanie</button>
+                        </form>
+                        </li>
+                    </ul>
+      
+                    <% })%>
+                 <% } %>
+                 <h3>Wizyta patronażowa</h3>
+                 <a class="btn btn-xs btn-success" 
+                           href="/patients/<%= patient._id%>/refferals/<%=refferal._id %>/appointments/">Dodaj nową wizytę lekarza</a>
+                           <br><br>
+ <%=appointment.appointmentdate%> - 
+                            <br>
+                            Przydzielony fizjoterapeuta:
+                            <br>
+                            <% if(appointment.physiotherapists === undefined || appointment.physiotherapists.length < 1 ){%>
+                            Brak fizjoterapeutów..
+                            <% }else{ %>
+                            <ul>
+                            <% appointment.physiotherapists.forEach(function(physiotherapist){ %>
+                          
+                                <li><%= physiotherapist.pesel %> - 
+                            <%= physiotherapist.lastname %> <%= physiotherapist.firstname %></li>
+                            </ul>
+                            
+                            <% }) %>
+                            <% } %>
+                            <br>
+                            
+                            Lekarz lub rehabilitant nadzorujący:
+                            <% if(appointment.supervisors.length < 1 ||appointment.supervisors === undefined  ){%>
+                            Brak osoby prowadzącej...
+                            <% }else{ %>
+                             <ul>
+                            <% appointment.supervisors.forEach(function(supervisor){ %>
+                            <li>
+                            <%= supervisor.nrpwz%> - 
+                            <%= supervisor.lastname %>
+                            <%= supervisor.firstname  %>
+                            </li>
+                            </ul>
+                            
+                            <% }) %>
+                            <% } %>
+                            <br>
+                            <ul>Choroby:
+                            <% appointment.diseases.forEach(function(disease){ %>
+                            <li><%=disease.code%> - <%=disease.name%><br/></li>
+                            <% })%>    
+                            </ul>
+                            Nr kolejki, stan pacjenta i termin realizacji świadczenia:
+                            <%=appointment.queue%> <% refferal.state %> - <%=appointment.month%> <%=appointment.year%>
+                            <br>
+
+         </div>        
+             
+</div>  
+<br>
+ <a class="btn btn-success" href="/patients/<%= patient._id%>/show">Wróć do listy pacjentów</a>
+
+<% include ../partials/footer %>

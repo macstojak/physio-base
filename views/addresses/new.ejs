@@ -1,7 +1,9 @@
 <% include ../partials/header %>
-<h1>Podaj nowy adres pacjenta:</h1>
+
     <form action="/patients/<%= patient._id %>/addresses" method="POST">
-        <div class="container">
+        <div class="container white-container">
+            <div class="text-container">
+                <h1>Podaj nowy adres pacjenta:</h1>
             <h3>Pacjent: <%= patient.firstname %> <%= patient.lastname %> - <%= patient.pesel %></h3>
                 <div class="form-group">
                     <label>Ulica:</label>
@@ -28,6 +30,8 @@
                 <button class="btn btn-success">Zapisz adres</button>
                 </div>
                 <a class="btn btn-primary" href="/patients/<%= patient._id %>/">Wróc do formularza pacjenta</a>
+                <br>
+                </div>       
         </div>
         
     </form>

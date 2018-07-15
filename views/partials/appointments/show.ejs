@@ -1,10 +1,13 @@
 <h3>Wizyty lekarskie/rehabilitacyjne:</h3>
-       <% if(refferal.appointments ===null || refferal.appointments === undefined || refferal.appointments.length ===0){%>
+       <% if(refferal.appointments === null || refferal.appointments === undefined || refferal.appointments.length ===0){%>
+                       <a class="btn btn-xs btn-success" 
+                           href="/patients/<%= patient._id%>/refferals/<%=refferal._id %>/appointments/">Dodaj nową wizytę lekarza</a>
                        <p>Brak wizyt...</p>
                    <% }else{%>
-                    
+                    <a class="btn btn-xs btn-success" 
+                           href="/patients/<%= patient._id%>/refferals/<%=refferal._id %>/appointments/">Dodaj nową wizytę lekarza</a>
                     <% refferal.appointments.forEach(function(appointment){ %>
-                    
+                 
                     <ul>
                         <li style="display:inline;">
                             <%=appointment.appointmentdate%> - 
@@ -14,21 +17,30 @@
                             <% if(appointment.physiotherapists === undefined || appointment.physiotherapists.length < 1 ){%>
                             Brak fizjoterapeutów..
                             <% }else{ %>
+                            <ul>
                             <% appointment.physiotherapists.forEach(function(physiotherapist){ %>
-                            <%= appointment.physiotherapist.nrpwz %> - 
-                            <%= appointment.physiotherapist.lastname %> <%= appointment.physiotherapist.firstname %>
+                          
+                                <li><%= physiotherapist.nrpwz %> - 
+                            <%= physiotherapist.lastname %> <%= physiotherapist.firstname %></li>
+                            </ul>
+                            
                             <% }) %>
                             <% } %>
                             <br>
                             
                             Lekarz lub rehabilitant nadzorujący:
-                            <% if(appointment.supervisor === undefined || appointment.supervisor.length < 1 ){%>
+                            <% if(appointment.supervisors.length < 1 ||appointment.supervisors === undefined  ){%>
                             Brak osoby prowadzącej...
                             <% }else{ %>
+                             <ul>
                             <% appointment.supervisors.forEach(function(supervisor){ %>
-                            <%= appointment.supervisor.nrpwz%> - 
-                            <%= appointment.supervisor.lastname %>
-                            <%= appointment.supervisor.firstname  %>
+                            <li>
+                            <%= supervisor.nrpwz%> - 
+                            <%= supervisor.lastname %>
+                            <%= supervisor.firstname  %>
+                            </li>
+                            </ul>
+                            
                             <% }) %>
                             <% } %>
                             <br>
@@ -39,11 +51,14 @@
                             </ul>
                             Nr kolejki, stan pacjenta i termin realizacji świadczenia:
                             <%=appointment.queue%> <% refferal.state %> - <%=appointment.month%> <%=appointment.year%>
+                            <br>
+                             <a class="btn btn-xs btn-primary" 
+                           href="/patients/<%=patient._id %>/refferals/<%=refferal._id %>/appointments/<%=appointment._id%>/show">Pokaż skierowanie</a>
                          <a class="btn btn-xs btn-warning" 
-                           href="/patients/<%=patient._id %>/refferals/<%= refferal._id%>/appointments/<%=appointment._id %>/">Edytuj skierowanie</a>
+                           href="/patients/<%=patient._id %>/refferals/<%= refferal._id%>/appointments/<%=appointment._id %>/">Edytuj wizytę</a>
                                
                         <form style="display:inline;" action="/patients/<%=patient._id %>/refferals/<%=refferal._id%>appointments/<%=appointment._id%>?_method=DELETE" method="POST">
-                            <button class="btn btn-xs btn-danger">Usuń skierowanie</button>
+                            <button class="btn btn-xs btn-danger">Usuń wizytę</button>
                         </form>
                         </li>
                     </ul>

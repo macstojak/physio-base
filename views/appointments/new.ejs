@@ -1,6 +1,7 @@
 <% include ../partials/header %>
- <div class="container">
+ <div class="container white-container">
         <form action="/patients/<%= patient._id%>/refferals/<%= refferal._id%>/appointments" method="POST">
+            <div class="text-container">
                <h3>Nowa wizyta:</h3>
                 <hr>
                     <div class="col-md-6 col-sm-12">
@@ -43,7 +44,7 @@
                     </div>
                     <div class="col-md-6 col-sm-12">
                         <label>Osoba prowadząca:</label>
-                        <select name="appointment[supervisor]" data-live-search="true" class="selectpicker" id="selectSupervisor" title="Wybierz osobę prowadzącą...">
+                        <select name="appointment[supervisors]" data-live-search="true" class="selectpicker" id="selectSupervisor" title="Wybierz osobę prowadzącą...">
                                 <% supervisors.forEach(function(supervisor){ %>
                                     <option value="<%= supervisor._id%>">
                                         <%= supervisor.nrpwz %> - <%= supervisor.firstname %> <%= supervisor.lastname %>
@@ -74,7 +75,7 @@
                 <div class="col-md-6 col-sm-12">
                     <button class="btn btn-xs btn-success centered">Zapisz wizytę nadzorcy</button>
                 </div>
-            
+            </div>
         </form>
     </div>
 

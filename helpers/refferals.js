@@ -60,11 +60,11 @@ exports.addRefferal =  function(req, res){
 }
 
 exports.updateRefferal = function(req, res){
-    db.Refferal.findByIdAndUpdate(req.params.refferalid, req.body.refferal)
+    db.Refferal.findByIdAndUpdate(req.params.refferalId, req.body.refferal)
     .then(function(updatedRefferal){
             console.log(req.session.prevPath)
             req.flash("success", "Zmieniono dane na skierowaniu")
-            res.redirect(req.session.prevPrevPath);
+            res.redirect(req.session.prevPath);
     })
     .catch(errorHandlers);
 }

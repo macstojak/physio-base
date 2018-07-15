@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint:ejs": "ejslint ./views/patients/show.ejs"
+    "lint:ejs": "ejslint ./views/appointments/edit.ejs"
   },
   "author": "MS",
   "license": "ISC",
