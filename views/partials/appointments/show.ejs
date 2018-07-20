@@ -20,7 +20,7 @@
                             <ul>
                             <% appointment.physiotherapists.forEach(function(physiotherapist){ %>
                           
-                                <li><%= physiotherapist.nrpwz %> - 
+                                <li><%= physiotherapist.pesel %> - 
                             <%= physiotherapist.lastname %> <%= physiotherapist.firstname %></li>
                             </ul>
                             
@@ -57,7 +57,7 @@
                          <a class="btn btn-xs btn-warning" 
                            href="/patients/<%=patient._id %>/refferals/<%= refferal._id%>/appointments/<%=appointment._id %>/">Edytuj wizytę</a>
                                
-                        <form style="display:inline;" action="/patients/<%=patient._id %>/refferals/<%=refferal._id%>appointments/<%=appointment._id%>?_method=DELETE" method="POST">
+                        <form style="display:inline;" action="/patients/<%=patient._id %>/refferals/<%=refferal._id%>/appointments/<%=appointment._id%>?_method=DELETE" method="POST">
                             <button class="btn btn-xs btn-danger">Usuń wizytę</button>
                         </form>
                         </li>

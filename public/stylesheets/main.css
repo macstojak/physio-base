@@ -184,9 +184,10 @@ body{
      background-image: url("./img/main/technology1.jpg");
 z-index: -1;
       background-repeat: no-repeat;
-    background-attachment: cover;
+    background-attachment: fixed;
     background-position: center; 
     max-width: 100%;
+    width: 100%;
     height: auto;
   
 }

@@ -47,6 +47,9 @@
                 <input class="form-control" type="text" name="appointment[queue]" value="<%=appointment.queue%>">
                 </div>
                 <div class="col-md-6 col-sm-12">
+                    
+                    <!--POPRAWNIE SKONSTRUOWANE SELECT MULTIPLE PONIŻEJ VVV-->
+                    
                 <label>Osoba prowadząca:</label>
                 <select name="appointment[supervisors]" multiple data-live-search="true" class="selectpicker" id="selectSupervisor" value="<%= appointment.supervisors%>">
                 <% if(appointment.supervisors.length<1 || appointment.supervisors === undefined){ %>
@@ -56,16 +59,20 @@
                                     </option>
                                     <% }) %>
                   <% }else{ %>
-                  <% appointment.supervisors.forEach(function(apposupervisor){%>
+                  
+                  
                   <% supervisors.forEach(function(supervisor){ %>
-                    
-                           <% if(apposupervisor._id.equals(supervisor._id)){ %>
-                           <% var selection = "selected" %>
+                   <% var selection = "" %>
+                    <% appointment.supervisors.forEach(function(apposupervisor){%>
+                   
+                           <% if(supervisor._id.equals(apposupervisor._id)){ %>
+                           <% selection = "selected" %>
                            <% } %>
-                            <option value="<%= supervisor._id%>" <%= selection %>>
+                           
+                            <% }) %>
+                             <option value="<%= supervisor._id%>" <%= selection %>>
                                 <%= supervisor.nrpwz%> - <%=supervisor.firstname %> <%= supervisor.lastname %>
                             </option>
-                            <% }) %>
                         <% })%>
                   <% } %>
                     

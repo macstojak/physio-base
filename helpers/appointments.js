@@ -89,12 +89,14 @@ exports.addAppointment = function(req, res){
          
         db.Appointment.create(newAppointment)
         .then(function(appointment){
-            
+            console.log("DISEASES: " + diseases)
+            console.log("SUPERVISORS: " + supervisors)
+            console.log("physiotherapists: " + physiotherapists)
             appointment.save();
             foundRefferal.appointments.push(appointment._id);
             foundRefferal.save();
              req.flash("success", "Zarejestrowano skierowanie!")
-                res.redirect("/appointments/index");
+                res.redirect("/patients/"+req.params.id);
             })
         })
         .catch(errorHandlers)
@@ -135,7 +137,7 @@ exports.deleteAppointment = function(req, res){
             { $pull: {"appointment._id": mongoose.Types.ObjectId(req.params.appointmentid) }
                 
             })
-          res.redirect("/patients/"+req.params.id+"/show");
+          res.redirect("/patients/"+req.params.id);
      
       })
     })
