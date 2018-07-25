@@ -119,21 +119,10 @@ exports.editAppointment = function(req, res){
             })
     }
 exports.updateAppointment = function(req, res){
-       db.Appointment.findByIdAndUpdate(req.params.appointmentid, req.body.appointment)
+
+       db.Appointment.findByIdAndUpdate(req.params.appointmentid, req.body.appointment, 
+       { new: true, overwrite: true, upsert: false })
        .then(function(updatedAppointment){
-           var physiotherapists = req.body.appointment.physiotherapists;
-           var diseases = req.body.appointment.diseases;
-           var supervisors = req.body.appointment.supervisors;
-           if(physiotherapists===undefined){
-            updatedAppointment.physiotherapists.remove()
-           }
-           if(supervisors===undefined){
-            updatedAppointment.supervisors.remove()
-           }
-           if(diseases===undefined){
-            updatedAppointment.diseases.remove()
-           }
-            updatedAppointment.save();
            console.log(req.body.appointment.physiotherapists)
            console.log("UPDATE FORM PHYSIOTHERAPIST: ");
             req.flash("success", "Zmieniono dane na skierowaniu")
