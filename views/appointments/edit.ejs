@@ -51,7 +51,7 @@
                     <!--POPRAWNIE SKONSTRUOWANE SELECT MULTIPLE PONIŻEJ VVVV-->
                     
                 <label>Osoba prowadząca:</label>
-                <select name="appointment[supervisors]" multiple data-live-search="true" class="selectpicker" id="selectSupervisor" value="<%= appointment.supervisors%>">
+                <select title="" name="appointment[supervisors]" multiple data-live-search="true" class="selectpicker" id="selectSupervisor" value="<%= appointment.supervisors%>">
                 <% if(appointment.supervisors.length<1 || appointment.supervisors === undefined){ %>
                           <% supervisors.forEach(function(supervisor){ %>
                                     <option value="<%= supervisor._id%>">
@@ -59,8 +59,6 @@
                                     </option>
                                     <% }) %>
                   <% }else{ %>
-                  
-                  
                   <% supervisors.forEach(function(supervisor){ %>
                    <% var selection = "" %>
                     <% appointment.supervisors.forEach(function(apposupervisor){%>
@@ -81,24 +79,31 @@
                 </div>
                 <div class="col-md-12 col-sm-12">
                     <label>Choroby:</label>
-                    <select multiple data-actions-box="true" name="appointment[diseases]" value="<%= appointment.diseases %>" id="selectDisease" data-live-search="true" class="selectpicker" multiple >
+                    <select title="" multiple data-actions-box="true" name="appointment[diseases]" value="<%= appointment.diseases %>" id="selectDisease" data-live-search="true" class="selectpicker" multiple >
+                        <% if(appointment.diseases.length<1 || appointment.diseases === undefined){ %>
+                          <% diseases.forEach(function(disease){ %>
+                                    <option value="<%= disease._id%>">
+                                        <%= disease.nrpwz %> - <%= disease.firstname %> <%= disease.lastname %>
+                                    </option>
+                                    <% }) %>
+                  <% }else{ %>
                        <% diseases.forEach(function(disease){ %>
+                       <% var selection = "" %>
                       <% appointment.diseases.forEach(function(appodisease){%>
-                           <% if(appodisease._id.equals(disease._id)){ %>
-                           <% var selection = "selected" %>
+                           <% if(disease._id.equals(appodisease._id)){ %>
+                           <% selection = "selected" %>
                            <% } %>
-                            <option value="<%= disease._id%>" <%= selection %>>
+                            <% }) %>
+                        <option value="<%= disease._id%>" <%= selection %>>
                                 <%= disease.code%> - <%=disease.name %>
                             </option>
-                            <% }) %>
-                        
                     <% }) %>
                     
-                    
+                    <% } %>
                     </select>
                 </div>
                 <label>Fizjoterapeuta:</label>
-                <select multiple name="appointment[physiotherapists]" data-live-search="true" class="selectpicker" value="<%= appointment.physiotherapists %>" id="selectPhysiotherapist">
+                <select title=""  multiple name="appointment[physiotherapists]" data-live-search="true" class="selectpicker" value="<%= appointment.physiotherapists %>" id="selectPhysiotherapist">
                    <% if(appointment.physiotherapists.length<1 || appointment.physiotherapists === undefined){%>
                    
                    <% physiotherapists.forEach(function(physiotherapist){ %>
@@ -108,15 +113,15 @@
                                     <% }) %>
                     <% }else{ %>
                      <% physiotherapists.forEach(function(physiotherapist){ %>
+                     <% var selection = "" %>
                       <% appointment.physiotherapists.forEach(function(appophysio){%>
-                           <% if(appophysio._id.equals(physiotherapist._id)){ %>
-                           <% var selection = "selected" %>
+                           <% if(physiotherapist._id.equals(appophysio._id)){ %>
+                           <% selection = "selected" %>
                            <% } %>
-                            <option value="<%= physiotherapist._id%>" <%= selection %>>
+                            <% }) %>
+                         <option value="<%= physiotherapist._id%>" <%= selection %>>
                                 <%= physiotherapist.pesel%> - <%=physiotherapist.firstname %> <%= physiotherapist.lastname %>
                             </option>
-                            <% }) %>
-                        
                     <% }) %>
                     <% } %>
                     

@@ -50,17 +50,17 @@ exports.addAppointment = function(req, res){
         }
         if(!(physiotherapistsTable === undefined)){
             if(Array.isArray(physiotherapistsTable) && physiotherapistsTable.length > 1){
-                for(var i = 0; i<physiotherapistsTable.length; i++){
-                           var id = mongoose.Types.ObjectId(physiotherapistsTable[i]);
-                           physiotherapists.push(id);
-                }
-                }else{
+                    for(var i = 0; i<physiotherapistsTable.length; i++){
+                               var id = mongoose.Types.ObjectId(physiotherapistsTable[i]);
+                               physiotherapists.push(id);
+                    }
+            }else if(physiotherapistsTable.length===1){
              physiotherapists =  mongoose.Types.ObjectId(physiotherapistsTable) 
             }
-            
-        }else{
+            else{
                 physiotherapists = [];
             }
+        }
             
          if(!(supervisorsTable === undefined)){
             if(Array.isArray(supervisorsTable) && supervisorsTable.length > 1){
@@ -121,7 +121,21 @@ exports.editAppointment = function(req, res){
 exports.updateAppointment = function(req, res){
        db.Appointment.findByIdAndUpdate(req.params.appointmentid, req.body.appointment)
        .then(function(updatedAppointment){
-           console.log("UPDATE FORM PHYSIOTHERAPIST: "); console.dir(req.body.appointment)
+           var physiotherapists = req.body.appointment.physiotherapists;
+           var diseases = req.body.appointment.diseases;
+           var supervisors = req.body.appointment.supervisors;
+           if(physiotherapists===undefined){
+            updatedAppointment.physiotherapists.remove()
+           }
+           if(supervisors===undefined){
+            updatedAppointment.supervisors.remove()
+           }
+           if(diseases===undefined){
+            updatedAppointment.diseases.remove()
+           }
+            updatedAppointment.save();
+           console.log(req.body.appointment.physiotherapists)
+           console.log("UPDATE FORM PHYSIOTHERAPIST: ");
             req.flash("success", "Zmieniono dane na skierowaniu")
             res.redirect(req.session.prevPrevPath);
         })
