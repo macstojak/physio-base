@@ -68,14 +68,14 @@ exports.addAppointment = function(req, res){
                            var id = mongoose.Types.ObjectId(supervisorsTable[i]);
                            supervisors.push(id);
                 }
-                }else{
+            }else{
              supervisors =  mongoose.Types.ObjectId(supervisorsTable) 
             }
             
         }else{
-                supervisors = [];
-            }
-      
+            supervisors = [];
+        }
+  
         var newAppointment = {
         appointmentdate: req.body.appointment.appointmentdate,
         month: req.body.appointment.month,

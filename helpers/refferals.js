@@ -60,7 +60,7 @@ exports.addRefferal =  function(req, res){
 }
 
 exports.updateRefferal = function(req, res){
-    db.Refferal.findByIdAndUpdate(req.params.refferalId, req.body.refferal)
+    db.Refferal.findByIdAndUpdate(req.params.refferalId, req.body.refferal, { new: true, overwrite: true, upsert: false })
     .then(function(updatedRefferal){
             console.log(req.session.prevPath)
             req.flash("success", "Zmieniono dane na skierowaniu")

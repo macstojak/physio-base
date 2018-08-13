@@ -1,4 +1,5 @@
 var express = require("express"),
+    mongoose= require("mongoose"),
     router = express.Router();
 var passport = require("passport");
 var db = require("../models");
@@ -17,7 +18,20 @@ router.get('/register', function(req, res) {
 });
 
 router.post('/register', function(req, res) {
-    db.User.register(new db.User({ username : req.body.username }), req.body.password, function(err, user) {
+    var role = "";
+    if(!(req.body.role === undefined)){
+        if(Array.isArray(req.body.role) && req.body.role.length > 1){
+                    for(var i = 0; i<req.body.role.length; i++){
+                               var id = mongoose.Types.ObjectId(req.body.role[i]);
+                               role.push(id);
+                    }
+                }else{
+                 role =  mongoose.Types.ObjectId(req.body.role) 
+                }
+        }else{
+            role = [];
+        }
+    db.User.register(new db.User({ username : req.body.username, firstname:req.body.firstname, lastname: req.body.lastname, pesel: req.body.pesel, role: role  }), req.body.password, function(err, user) {
         if (err) {
             req.flash("error", err.message);
             return res.render('register', { user : user });

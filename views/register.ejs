@@ -1,20 +1,46 @@
 <% include ./partials/header %>
-    <h3>Zarejestruj się w PhysioBase</h3>
+    
     <form action="/register" method="POST">
-        <div class="container">
+        <div class="container white-container">
+            <div class="text-container">
+            <h3>Zarejestruj się w PhysioBase</h3>
             <div class="row">
                 
                 <div class="col-md-6">
+                    <div class="form-group">
                     <p>Login:</p>
                     <input type="text" name="username"></input>
+                    </div>
+                    <div class="form-group">
                     <p>Hasło:</p>
                     <input type="password" name="password"></input>
+                    </div>
+                    <div class="form-group">
+                    <p>Imię:</p>
+                    <input type="text" name="firstname"></input>
+                    </div>
+                    <div class="form-group">
+                    <p>Nazwisko:</p>
+                    <input type="text" name="lastname"></input>
+                    </div>
+                    <div class="form-group">
+                    <p>Rola: (przytrzymaj Ctrl, żeby zaznaczyć kilka)</p>
+                    <select name="user[role]" multiple class="selectpicker form-control" title="Wybierz swoje stanowisko">
+                        <option>Fizjoterapeuta</option>
+                        <option>Lekarz</option>
+                    </select>
+                    </div>
+                     <div class="form-group">
+                    <p>Pesel:</p>
+                    <input type="text" name="pesel"></input>
+                    </div>
                 </div>
                
                
             </div>
             <br>
              <div class="col-md-12"><button class="btn btn-info">Załóż konto</button></div> 
+        </div>
         </div>
     </form>
 <% include ./partials/footer %>

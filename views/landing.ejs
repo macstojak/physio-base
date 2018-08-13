@@ -13,44 +13,64 @@
     </div>
 
     <% } else { %>
+    
      <div class="jumbotron"><h1>Witaj na stronie PhysioBase, <%= currentUser.username %>  </h1></div>
     <div class="container">
     
+   <% currentUser.role.forEach(function(role){ %>
+            
         <div class="ul-menu row text-center">
-             <% if(currentUser.username === "Admin"){ %>
-             <div id="cf5" class="col-md-6 cf">
+            
+             <% if(role === "Admin"){ %>
+             <h1>Uprawnienia: Admin</h1>
+         <div class="col-md-6 cf">
               <img class="bottom "></img>
               <img class="top tile"><span class="text-div"><a class="text-top" href="/patients/">Dodaj pacjenta</a></span></img>
               
             </div>
-            <div id="cf6" class="col-md-6 cf">
+            <div class="col-md-6 cf">
                  <img class="bottom"></img>
                  <img class="top tile"><span class="text-div"><a class="text-top" href="/patients/index">Sprawdź listę pacjentów</a></span></img>
                  
             </div>
-            <div id="cf6" class="col-md-6 cf">
+            <div class="col-md-6 cf">
                  <img class="bottom"></img>
                  <img class="top tile"><span class="text-div"><a class="text-top" href="/patients/refferals/index">Zobacz skierowania</a></span></img>
                  
             </div>
-              <div id="cf6" class="col-md-6 cf">
+              <div class="col-md-6 cf">
                  <img class="bottom"></img>
                  <img class="top tile"><span class="text-div"><a class="text-top" href="/appointents/index">Zobacz wizyty lekarskie</a></span></img>
                  
             </div>
-            <% } else { %>
-            <div id="cf1" class="col-md-6 cf">
+            <% } else if(role==="Physiotherapist"){ %>
+            <h2>Uprawnienia: Fizjoterapeuta</h2>
+            <div class="col-md-6 cf">
               <img class="bottom "></img>
-              <img class="top tile"><span><a class="text-top" href="#">Lista pacjentów</a></span></img>
+              <img class="top tile"><span><a class="text-top" href="#">Lista pacjentów na miesiąc</a></span></img>
               
             </div>
-            <div id="cf2" class="col-md-6 cf">
+            <div class="col-md-6 cf">
+              <img class="bottom "></img>
+              <img class="top tile"><span><a class="text-top" href="#">Lista wszystkich pacjentów</a></span></img>
+              
+            </div>
+            <div class="col-md-6 cf">
                  <img class="bottom"></img>
                  <img class="top tile"></img>
-                 <span><a class="text-top" href="#">Archiwum</a></span>
+                 <span><a class="text-top" href="#">Mapa dojazdu do pacjentów</a></span>
             </div>
+            <% }else if(role==="Director"){ %>
+            <h1>Uprawnienia: Dyrektor</h1>
+            
+            <% }else if(role==="Doctor"){ %>
+            <h1>Uprawnienia: Lekarz</h1>
+            
+            
             <% } %>
+            
         </div>
+        <% }) %>
     </div>
     <% } %>
  

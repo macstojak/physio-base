@@ -51,7 +51,7 @@
                     <!--POPRAWNIE SKONSTRUOWANE SELECT MULTIPLE PONIŻEJ VVVV-->
                     
                 <label>Osoba prowadząca:</label>
-                <select title="" name="appointment[supervisors]" multiple data-live-search="true" class="selectpicker" id="selectSupervisor" value="<%= appointment.supervisors%>">
+                <select title="Dodaj osobę prowadzącą" name="appointment[supervisors]" multiple data-live-search="true" class="selectpicker" id="selectSupervisor" value="<%= appointment.supervisors%>">
                 <% if(appointment.supervisors.length<1 || appointment.supervisors === undefined){ %>
                           <% supervisors.forEach(function(supervisor){ %>
                                     <option value="<%= supervisor._id%>">
@@ -79,7 +79,7 @@
                 </div>
                 <div class="col-md-12 col-sm-12">
                     <label>Choroby:</label>
-                    <select title="" multiple data-actions-box="true" name="appointment[diseases]" value="<%= appointment.diseases %>" id="selectDisease" data-live-search="true" class="selectpicker" multiple >
+                    <select title="Dodaj choroby" multiple data-actions-box="true" name="appointment[diseases]" value="<%= appointment.diseases %>" id="selectDisease" data-live-search="true" class="selectpicker">
                         <% if(appointment.diseases.length<1 || appointment.diseases === undefined){ %>
                           <% diseases.forEach(function(disease){ %>
                                     <option value="<%= disease._id%>">
@@ -103,7 +103,7 @@
                     </select>
                 </div>
                 <label>Fizjoterapeuta:</label>
-                <select title=""  multiple name="appointment[physiotherapists]" data-live-search="true" class="selectpicker" value="<%= appointment.physiotherapists %>" id="selectPhysiotherapist">
+                <select title="Dodaj fizjoterapeutę"  multiple name="appointment[physiotherapists]" data-live-search="true" class="selectpicker" value="<%= appointment.physiotherapists %>" id="selectPhysiotherapist">
                    <% if(appointment.physiotherapists.length<1 || appointment.physiotherapists === undefined){%>
                    
                    <% physiotherapists.forEach(function(physiotherapist){ %>

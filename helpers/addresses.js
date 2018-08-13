@@ -23,7 +23,7 @@ exports.createNewAddress =  function(req, res){
                 foundPatient.addresses.push(address._id);
                foundPatient.save();
                 req.flash("success", "Dodano nowy adres");
-                res.redirect("back");
+                res.redirect("/patients/"+req.params.id);
             });
         })
         .catch(errorHandlers);

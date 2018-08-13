@@ -11,7 +11,7 @@
                 </div>
                 <div class="col-md-6 col-sm-12">
                 <label>Lekarz kierujący:</label>
-                <select name="refferal[doctor]" data-live-search="true" class="selectpicker" id="selectDoctor" value="<%=refferal.doctor%>">
+                <select name="refferal[doctor]" data-actions-box="true" data-live-search="true" class="selectpicker" id="selectDoctor" value="<%=refferal.doctor%>">
                     <% doctors.forEach(function(doctor){%>
                        <% if(refferal.doctor._id.equals(doctor._id)){ %>
                        <% var selection = "selected" %>
@@ -24,7 +24,7 @@
                 </div>
                  <div class="col-md-6 col-sm-12">
                 <label>Jednostka kierująca:</label>
-                <select name="refferal[clinic]" data-live-search="true" class="selectpicker" id="selectClinic" value="<%= refferal.clinic%>">
+                <select name="refferal[clinic]" data-actions-box="true" data-live-search="true" class="selectpicker" id="selectClinic" value="<%= refferal.clinic%>">
                     <% clinics.forEach(function(clinic){ %>
                     <% if(refferal.clinic._id.equals(clinic._id)){ %>
                        <% var selection = "selected" %>
